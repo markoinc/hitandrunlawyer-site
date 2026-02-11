@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LeadForm from '../../components/LeadForm.astro';
-import { resources, getResourceBySlug } from '../../data/resources';
+import { resources } from '../../data/resources';
 
 export function getStaticPaths() {
   return resources.map(resource => ({
@@ -48,38 +48,43 @@ const seoTitle = truncateTitle(resource.title);
           <h2>Overview</h2>
           <p>
             This comprehensive guide covers everything you need to know about {resource.title.toLowerCase()}. 
-            Whether you're a Hit and Run passenger, driver, or someone injured by a Hit and Run vehicle, 
+            Whether you were a driver, passenger, pedestrian, or cyclist struck by a hit and run driver, 
             understanding your rights is the first step toward fair compensation.
           </p>
 
           <h2>Key Information</h2>
           <ul>
-            <li>Hit and Run provides up to $1 million in liability coverage during active rides</li>
-            <li>Coverage varies based on the driver's status (app on/off, waiting, en route, trip in progress)</li>
+            <li>Hit and run accidents happen every 43 seconds in the United States</li>
+            <li>About 50% of hit and run drivers are eventually identified through investigation</li>
+            <li>Uninsured Motorist (UM) coverage can protect you even if the driver is never found</li>
             <li>The statute of limitations varies by state - some are as short as 1 year</li>
-            <li>Multiple insurance policies may apply to your claim</li>
+            <li>Acting quickly is crucial to preserve evidence like surveillance footage</li>
           </ul>
 
-          <h2>Important Steps</h2>
+          <h2>Important Steps After a Hit and Run</h2>
           <ol>
-            <li><strong>Document everything:</strong> Photos, videos, witness info, police reports</li>
+            <li><strong>Stay at the scene:</strong> Never chase the fleeing driver. Call 911 immediately.</li>
+            <li><strong>Document everything:</strong> Vehicle description, direction of travel, partial plates, debris</li>
+            <li><strong>Get witness information:</strong> Bystanders may have seen details you missed</li>
             <li><strong>Seek medical attention:</strong> Even for seemingly minor injuries</li>
-            <li><strong>Save your Hit and Run receipt:</strong> Contains critical trip and driver information</li>
-            <li><strong>Don't sign anything:</strong> Avoid giving statements to insurance adjusters</li>
-            <li><strong>Contact an attorney:</strong> Get legal advice before making decisions</li>
+            <li><strong>Check for cameras:</strong> Nearby businesses may have captured the accident</li>
+            <li><strong>File a police report:</strong> Required for UM/UIM claims and finding the driver</li>
+            <li><strong>Contact an attorney:</strong> Hit and run cases are complex and time-sensitive</li>
           </ol>
 
-          <h2>Common Questions</h2>
+          <h2>Your Legal Options</h2>
           <p>
-            Many Hit and Run accident victims have questions about who is responsible, what insurance applies, 
-            and how much their claim might be worth. Every case is different, which is why speaking 
-            with an experienced Hit and Run accident attorney is so important.
+            Even if the hit and run driver is never found, you may still have options for compensation through your own Uninsured Motorist (UM) coverage. If the driver is identified, you can pursue a claim against their insurance or file a lawsuit.
+          </p>
+          
+          <p>
+            Many hit and run victims don't realize they have multiple potential sources of compensation. An experienced hit and run attorney can help identify all available coverage and pursue maximum recovery.
           </p>
 
-          <div class="bg-secondary/10 p-6 rounded-xl mt-8">
+          <div class="bg-primary/10 p-6 rounded-xl mt-8">
             <h3 class="text-xl font-bold mb-2">Get Personalized Guidance</h3>
-            <p class="mb-4">Have questions about your specific situation? Speak with an attorney who specializes in Hit and Run accident cases.</p>
-            <a href="/free-consultation/" class="bg-secondary text-white px-6 py-3 rounded-lg font-bold hover:bg-secondary-dark transition inline-block">
+            <p class="mb-4">Have questions about your specific hit and run situation? Speak with an attorney who specializes in these cases.</p>
+            <a href="/free-consultation/" class="bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-primary-dark transition inline-block">
               Get Free Case Review →
             </a>
           </div>

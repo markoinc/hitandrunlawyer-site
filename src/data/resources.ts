@@ -7,121 +7,140 @@ export interface Resource {
 }
 
 export const resources: Resource[] = [
+  // GUIDES
   {
-    slug: "what-to-do-after-Hit and Run-accident",
+    slug: "what-to-do-after-hit-and-run",
     title: "What to Do After a Hit and Run Accident",
-    description: "Step-by-step guide on what to do immediately after being involved in a Hit and Run or Hit and Run accident.",
+    description: "Step-by-step guide on what to do immediately after being involved in a hit and run accident. Critical steps to protect your case.",
     category: "Guides",
     readTime: "10 min"
   },
   {
-    slug: "Hit and Run-insurance-coverage",
-    title: "Complete Guide to Hit and Run Insurance Coverage",
-    description: "Understanding Hit and Run's three-tier insurance system and how coverage changes during different ride phases.",
+    slug: "um-uim-coverage",
+    title: "Complete Guide to UM/UIM Insurance Coverage",
+    description: "Understanding Uninsured and Underinsured Motorist coverage and how it protects you in hit and run cases.",
     category: "Guides",
     readTime: "12 min"
   },
   {
     slug: "passenger-rights",
     title: "Hit and Run Passenger Rights Guide",
-    description: "Know your rights as a Hit and Run passenger before, during, and after a Hit and Run accident.",
+    description: "Know your rights as a passenger in a vehicle struck by a hit and run driver.",
     category: "Guides",
     readTime: "8 min"
   },
   {
     slug: "evidence-preservation",
     title: "Preserving Evidence After Hit and Run Accidents",
-    description: "Critical evidence to collect and preserve to strengthen your Hit and Run accident claim.",
+    description: "Critical evidence to collect and preserve to strengthen your hit and run accident claim, including surveillance footage.",
     category: "Guides",
     readTime: "9 min"
   },
   {
-    slug: "hit-and-run-vs-hit-and-run-insurance",
-    title: "Hit and Run vs. Hit and Run Insurance Comparison",
-    description: "Side-by-side comparison of Hit and Run and Hit and Run insurance coverage and claim processes.",
-    category: "Comparisons",
-    readTime: "8 min"
-  },
-  {
-    slug: "Hit and Run-laws-by-state",
-    title: "Hit and Run Laws by State",
-    description: "State-by-state breakdown of Hit and Run regulations, insurance requirements, and consumer protections.",
-    category: "Legal Info",
-    readTime: "15 min"
+    slug: "finding-the-driver",
+    title: "How to Find a Hit and Run Driver",
+    description: "Methods investigators and attorneys use to track down hit and run drivers after they flee the scene.",
+    category: "Guides",
+    readTime: "10 min"
   },
   {
     slug: "statute-of-limitations",
-    title: "Hit and Run Accident Statute of Limitations",
-    description: "Time limits for filing Hit and Run accident claims in all 50 states plus DC.",
+    title: "Hit and Run Statute of Limitations by State",
+    description: "Time limits for filing hit and run accident claims in all 50 states plus DC. Don't miss your deadline.",
     category: "Legal Info",
     readTime: "10 min"
   },
   {
-    slug: "Hit and Run-accident-checklist",
+    slug: "hit-and-run-laws-by-state",
+    title: "Hit and Run Laws by State",
+    description: "State-by-state breakdown of hit and run criminal penalties, civil liability, and victim rights.",
+    category: "Legal Info",
+    readTime: "15 min"
+  },
+  {
+    slug: "filing-police-report",
+    title: "Filing a Police Report for Hit and Run",
+    description: "How to file an effective police report after a hit and run accident to maximize your chances of finding the driver.",
+    category: "Guides",
+    readTime: "7 min"
+  },
+  {
+    slug: "hit-and-run-checklist",
     title: "Hit and Run Accident Checklist",
-    description: "Printable checklist of everything to do after an Hit and Run accident to protect your rights.",
+    description: "Printable checklist of everything to do after a hit and run accident to protect your rights and your claim.",
     category: "Checklists",
     readTime: "5 min"
   },
   {
-    slug: "dealing-with-Hit and Run-insurance",
-    title: "Dealing With Hit and Run Insurance Company",
-    description: "Tips for communicating with James River Insurance and other Hit and Run insurers.",
+    slug: "dealing-with-insurance",
+    title: "Dealing With Your Insurance After Hit and Run",
+    description: "Tips for filing and negotiating UM/UIM claims with your own insurance company after a hit and run.",
     category: "Guides",
     readTime: "8 min"
   },
   {
-    slug: "finding-Hit and Run-accident-lawyer",
+    slug: "finding-hit-and-run-lawyer",
     title: "How to Find a Hit and Run Accident Lawyer",
-    description: "What to look for when hiring an attorney for your Hit and Run accident case.",
+    description: "What to look for when hiring an attorney for your hit and run accident case. Key qualifications and red flags.",
     category: "Guides",
     readTime: "7 min"
   },
   {
     slug: "hit-and-run-settlement-guide",
     title: "Hit and Run Accident Settlement Guide",
-    description: "Understanding the settlement process, typical values, and how to maximize your compensation.",
+    description: "Understanding the settlement process, typical values, and how to maximize your compensation after a hit and run.",
     category: "Guides",
     readTime: "12 min"
   },
   {
     slug: "medical-treatment-guide",
     title: "Medical Treatment After Hit and Run Accidents",
-    description: "Guide to seeking and documenting medical treatment to support your accident claim.",
+    description: "Guide to seeking and documenting medical treatment to support your hit and run accident claim.",
     category: "Guides",
     readTime: "9 min"
   },
   {
-    slug: "Hit and Run-safety-tips",
-    title: "Hit and Run Safety Tips",
-    description: "How to stay safe when using Hit and Run services and what to do if something goes wrong.",
-    category: "Safety",
-    readTime: "6 min"
+    slug: "pedestrian-hit-and-run",
+    title: "Pedestrian Hit and Run Guide",
+    description: "Special considerations for pedestrians injured in hit and run accidents. Your rights and recovery options.",
+    category: "Victim Types",
+    readTime: "10 min"
   },
   {
-    slug: "comparative-negligence-guide",
-    title: "Comparative Negligence in Hit and Run Claims",
-    description: "How fault is divided in Hit and Run accidents and how it affects your compensation.",
+    slug: "cyclist-hit-and-run",
+    title: "Cyclist Hit and Run Guide",
+    description: "What cyclists need to know after being struck by a hit and run driver. Legal options and common injuries.",
+    category: "Victim Types",
+    readTime: "9 min"
+  },
+  {
+    slug: "parking-lot-hit-and-run",
+    title: "Parking Lot Hit and Run Claims",
+    description: "How to handle hit and run damage to your parked vehicle. Finding the driver and filing claims.",
+    category: "Victim Types",
+    readTime: "7 min"
+  },
+  {
+    slug: "fatal-hit-and-run",
+    title: "Fatal Hit and Run: Wrongful Death Claims",
+    description: "Guide for families pursuing wrongful death claims after a fatal hit and run accident.",
+    category: "Victim Types",
+    readTime: "12 min"
+  },
+  {
+    slug: "hit-and-run-criminal-penalties",
+    title: "Criminal Penalties for Hit and Run",
+    description: "Understanding the criminal consequences for hit and run drivers and how criminal cases affect civil claims.",
     category: "Legal Info",
     readTime: "8 min"
-  },
-  {
-    slug: "autonomous-Hit and Run-accidents",
-    title: "Autonomous Hit and Run Vehicle Accidents",
-    description: "Legal issues unique to accidents involving Hit and Run companies' self-driving vehicles.",
-    category: "Legal Info",
-    readTime: "10 min"
   }
 ];
 
-export function getResourceBySlug(slug: string): Resource | undefined {
-  return resources.find(r => r.slug === slug);
+export function getResourceCategories(): string[] {
+  const categories = new Set(resources.map(r => r.category));
+  return Array.from(categories);
 }
 
 export function getResourcesByCategory(category: string): Resource[] {
   return resources.filter(r => r.category === category);
-}
-
-export function getResourceCategories(): string[] {
-  return [...new Set(resources.map(r => r.category))];
 }

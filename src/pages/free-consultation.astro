@@ -6,13 +6,13 @@ const webhookUrl = "https://services.leadconnectorhq.com/hooks/OsNgWuy8oZzLbp5BX
 
 <BaseLayout 
   title="Free Consultation"
-  description="Get a free, no-obligation case evaluation from an experienced Hit and Run accident attorney. No fees unless you win."
+  description="Get a free, no-obligation case evaluation from an experienced hit and run accident attorney. No fees unless you win."
 >
   <section class="py-20 bg-gradient-to-br from-primary to-primary-dark text-white">
     <div class="max-w-4xl mx-auto px-4 text-center">
       <h1 class="text-4xl md:text-5xl font-bold mb-6">Free Case Consultation</h1>
-      <p class="text-xl text-gray-200 mb-4">
-        Injured in a Hit and Run accident? Get the legal help you deserve.
+      <p class="text-xl text-accent-silver mb-4">
+        Victim of a hit and run accident? Get the legal help you deserve.
       </p>
       <div class="flex flex-wrap justify-center gap-4 text-lg">
         <span class="bg-white/20 px-4 py-2 rounded-full">✓ 100% Free</span>
@@ -31,11 +31,12 @@ const webhookUrl = "https://services.leadconnectorhq.com/hooks/OsNgWuy8oZzLbp5BX
           
           <form action={webhookUrl} method="POST" class="space-y-6">
             <input type="hidden" name="source" value="free-consultation" />
-            <input type="hidden" name="site" value="Hit and Runlawyersnearme.com" />
+            <input type="hidden" name="site" value="hitandrunlawyer.net" />
+            <input type="hidden" name="caseType" value="hit-and-run" />
             
             <!-- Personal Info -->
             <div>
-              <h3 class="font-semibold mb-4 text-secondary">Your Information</h3>
+              <h3 class="font-semibold mb-4 text-primary">Your Information</h3>
               <div class="grid md:grid-cols-2 gap-4">
                 <div>
                   <label class="block text-sm font-medium mb-1">First Name *</label>
@@ -61,28 +62,29 @@ const webhookUrl = "https://services.leadconnectorhq.com/hooks/OsNgWuy8oZzLbp5BX
             
             <!-- Accident Info -->
             <div>
-              <h3 class="font-semibold mb-4 text-secondary">Accident Details</h3>
+              <h3 class="font-semibold mb-4 text-primary">Accident Details</h3>
               <div class="grid md:grid-cols-2 gap-4">
                 <div>
                   <label class="block text-sm font-medium mb-1">Your Role in the Accident *</label>
                   <select name="accidentType" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-secondary">
                     <option value="">Select your role...</option>
-                    <option value="hit-and-run-passenger">Hit and Run/Hit and Run Passenger</option>
-                    <option value="hit-and-run-driver">Hit and Run/Hit and Run Driver</option>
-                    <option value="other-driver">Driver of Another Vehicle</option>
-                    <option value="pedestrian">Pedestrian Hit by Hit and Run/Hit and Run</option>
-                    <option value="cyclist">Cyclist Hit by Hit and Run/Hit and Run</option>
+                    <option value="driver-struck">I was driving and was hit</option>
+                    <option value="passenger">I was a passenger in a vehicle that was hit</option>
+                    <option value="pedestrian">I was a pedestrian struck by a vehicle</option>
+                    <option value="cyclist">I was a cyclist struck by a vehicle</option>
+                    <option value="parked-vehicle">My parked vehicle was hit</option>
+                    <option value="motorcyclist">I was a motorcyclist struck by a vehicle</option>
                     <option value="other">Other</option>
                   </select>
                 </div>
                 <div>
-                  <label class="block text-sm font-medium mb-1">Hit and Run Company *</label>
-                  <select name="company" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-secondary">
-                    <option value="">Select company...</option>
-                    <option value="hit-and-run">Hit and Run</option>
-                    <option value="hit-and-run">Hit and Run</option>
-                    <option value="both">Both/Unknown</option>
-                    <option value="other">Other Hit and Run</option>
+                  <label class="block text-sm font-medium mb-1">Was the Driver Found? *</label>
+                  <select name="driverFound" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-secondary">
+                    <option value="">Select...</option>
+                    <option value="yes-identified">Yes, driver was identified</option>
+                    <option value="no-fled">No, driver fled and is unknown</option>
+                    <option value="partial-info">Have partial info (plate, description)</option>
+                    <option value="police-investigating">Police are still investigating</option>
                   </select>
                 </div>
               </div>
@@ -121,20 +123,19 @@ const webhookUrl = "https://services.leadconnectorhq.com/hooks/OsNgWuy8oZzLbp5BX
                 </select>
               </div>
               <div>
-                <label class="block text-sm font-medium mb-1">Driver's app status during accident</label>
-                <select name="driverStatus" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-secondary">
+                <label class="block text-sm font-medium mb-1">Do you have UM/UIM coverage?</label>
+                <select name="umCoverage" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-secondary">
                   <option value="">Select if known...</option>
-                  <option value="during-trip">During a trip (passenger onboard)</option>
-                  <option value="en-route">En route to pickup</option>
-                  <option value="app-on">App on, waiting for ride</option>
-                  <option value="unknown">Unknown</option>
+                  <option value="yes">Yes, I have UM/UIM coverage</option>
+                  <option value="no">No, I don't have UM/UIM coverage</option>
+                  <option value="unknown">I'm not sure</option>
                 </select>
               </div>
             </div>
             
             <div>
               <label class="block text-sm font-medium mb-1">Tell us what happened</label>
-              <textarea name="description" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-secondary" placeholder="Describe the accident, your injuries, and any other relevant details..."></textarea>
+              <textarea name="description" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-secondary" placeholder="Describe the hit and run accident, any details about the fleeing vehicle, your injuries, and any other relevant details..."></textarea>
             </div>
             
             <div class="flex items-start gap-2">
@@ -144,7 +145,7 @@ const webhookUrl = "https://services.leadconnectorhq.com/hooks/OsNgWuy8oZzLbp5BX
               </label>
             </div>
             
-            <button type="submit" class="w-full bg-secondary hover:bg-secondary-dark text-white font-bold py-4 px-6 rounded-lg text-lg transition transform hover:scale-[1.02] shadow-lg">
+            <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 px-6 rounded-lg text-lg transition transform hover:scale-[1.02] shadow-lg">
               🚗 Get My Free Case Review Now
             </button>
             
@@ -165,7 +166,7 @@ const webhookUrl = "https://services.leadconnectorhq.com/hooks/OsNgWuy8oZzLbp5BX
               </li>
               <li class="flex items-start gap-2">
                 <span>✓</span>
-                <span>Experienced Hit and Run accident attorneys</span>
+                <span>Experienced hit and run attorneys</span>
               </li>
               <li class="flex items-start gap-2">
                 <span>✓</span>
@@ -183,18 +184,16 @@ const webhookUrl = "https://services.leadconnectorhq.com/hooks/OsNgWuy8oZzLbp5BX
           </div>
 
           <div class="bg-gray-50 p-6 rounded-xl">
-
-          <div class="bg-gray-50 p-6 rounded-xl">
             <h3 class="font-bold mb-4">⏱️ Time Matters</h3>
             <p class="text-gray-600 text-sm">
               Evidence disappears. Witnesses forget. Statutes of limitations expire. The sooner you contact us, the stronger your case.
             </p>
           </div>
 
-          <div class="bg-secondary/10 p-6 rounded-xl border border-secondary">
-            <h3 class="font-bold mb-4">💰 $1M Coverage</h3>
+          <div class="bg-primary/10 p-6 rounded-xl border border-primary">
+            <h3 class="font-bold mb-4">🛡️ UM/UIM Coverage</h3>
             <p class="text-gray-600 text-sm">
-              Hit and Run provides up to $1 million in liability coverage during active trips. Don't settle for less than you deserve.
+              Even if the driver is never found, you may still recover compensation through your own Uninsured Motorist coverage. We'll help you navigate the claims process.
             </p>
           </div>
         </div>

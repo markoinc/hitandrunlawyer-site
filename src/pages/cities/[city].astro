@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LeadForm from '../../components/LeadForm.astro';
-import { cities, getCityBySlug } from '../../data/cities';
+import { cities } from '../../data/cities';
 import { getStateBySlug } from '../../data/states';
 
 export function getStaticPaths() {
@@ -22,7 +22,7 @@ const schema = {
   "@context": "https://schema.org",
   "@type": "LegalService",
   "name": `${city.name} Hit and Run Accident Lawyers`,
-  "description": `Find experienced Hit and Run accident lawyers in ${city.name}, ${city.stateAbbr}. Free case evaluation.`,
+  "description": `Find experienced hit and run accident lawyers in ${city.name}, ${city.stateAbbr}. Free case evaluation.`,
   "areaServed": {
     "@type": "City",
     "name": city.name,
@@ -36,7 +36,7 @@ const schema = {
 
 <BaseLayout 
   title={seoTitle}
-  description={`Find experienced Hit and Run accident lawyers in ${city.name}, ${city.stateAbbr}. ${state?.statOfLimitations} statute of limitations. Free case evaluation.`}
+  description={`Find experienced hit and run accident lawyers in ${city.name}, ${city.stateAbbr}. ${state?.statOfLimitations} statute of limitations. Free case evaluation.`}
   schema={schema}
 >
   <!-- Hero -->
@@ -49,7 +49,7 @@ const schema = {
         <span class="text-white">{city.name}</span>
       </nav>
       <h1 class="text-4xl md:text-5xl font-bold mb-4">{city.name} Hit and Run Accident Lawyers</h1>
-      <p class="text-xl text-gray-300">Experienced Hit and Run accident attorneys in {city.name}, {city.stateAbbr}</p>
+      <p class="text-xl text-gray-300">Experienced hit and run accident attorneys in {city.name}, {city.stateAbbr}</p>
     </div>
   </section>
 
@@ -76,9 +76,9 @@ const schema = {
         <div class="bg-white p-6 rounded-xl shadow mb-8">
           <h2 class="text-2xl font-bold mb-4">Hit and Run Accidents in {city.name}</h2>
           <p class="text-gray-600 mb-4">
-            {city.name} is {city.marketRank ? `ranked #${city.marketRank} among US Hit and Run markets` : "a significant Hit and Run market"} with 
-            {city.population.toLocaleString()} residents. {city.uniqueFactors?.[0] || "The city sees significant Hit and Run activity."} 
-            If you've been injured in a Hit and Run accident in {city.name}, you may be entitled to compensation.
+            With a population of {city.population.toLocaleString()}, {city.name} sees a significant number of hit and run accidents each year. 
+            Urban density, busy intersections, and high traffic volume contribute to both accidents and drivers fleeing the scene.
+            If you've been the victim of a hit and run in {city.name}, you may be entitled to compensation.
           </p>
 
           <div class="grid md:grid-cols-2 gap-4 mt-6">
@@ -86,45 +86,18 @@ const schema = {
               <h3 class="font-semibold text-gray-700">Population</h3>
               <p class="text-2xl font-bold">{city.population.toLocaleString()}</p>
             </div>
-            {city.marketRank && (
-              <div class="bg-gray-50 p-4 rounded-lg">
-                <h3 class="font-semibold text-gray-700">Hit and Run Market Rank</h3>
-                <p class="text-2xl font-bold text-secondary">#{city.marketRank}</p>
-              </div>
-            )}
-            {city.annualTrips && (
-              <div class="bg-gray-50 p-4 rounded-lg">
-                <h3 class="font-semibold text-gray-700">Annual Hit and Run Trips</h3>
-                <p class="text-2xl font-bold">{(city.annualTrips / 1000000).toFixed(1)}M</p>
-              </div>
-            )}
-            {city.averageWaitTime && (
-              <div class="bg-gray-50 p-4 rounded-lg">
-                <h3 class="font-semibold text-gray-700">Avg Wait Time</h3>
-                <p class="text-2xl font-bold">{city.averageWaitTime}</p>
-              </div>
-            )}
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h3 class="font-semibold text-gray-700">State</h3>
+              <p class="text-2xl font-bold">{city.stateAbbr}</p>
+            </div>
           </div>
         </div>
 
-        <!-- Busy Areas -->
-        {city.busyAreas && city.busyAreas.length > 0 && (
-          <div class="bg-white p-6 rounded-xl shadow mb-8">
-            <h2 class="text-2xl font-bold mb-4">High Hit and Run Activity Areas</h2>
-            <p class="text-gray-600 mb-4">Areas in {city.name} with the highest concentration of Hit and Run/Hit and Run activity:</p>
-            <div class="flex flex-wrap gap-2">
-              {city.busyAreas.map(area => (
-                <span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full text-sm">{area}</span>
-              ))}
-            </div>
-          </div>
-        )}
-
-        <!-- Dangerous Intersections -->
+        <!-- High Risk Areas -->
         {city.dangerousIntersections && city.dangerousIntersections.length > 0 && (
           <div class="bg-white p-6 rounded-xl shadow mb-8">
-            <h2 class="text-2xl font-bold mb-4">High-Risk Intersections</h2>
-            <p class="text-gray-600 mb-4">Intersections in {city.name} with frequent Hit and Run accidents:</p>
+            <h2 class="text-2xl font-bold mb-4">High-Risk Accident Areas in {city.name}</h2>
+            <p class="text-gray-600 mb-4">Areas with frequent traffic accidents and hit and run incidents:</p>
             <ul class="space-y-2">
               {city.dangerousIntersections.map(intersection => (
                 <li class="flex items-center gap-2">
@@ -136,54 +109,84 @@ const schema = {
           </div>
         )}
 
-        <!-- Airports -->
-        {city.airports && city.airports.length > 0 && (
-          <div class="bg-white p-6 rounded-xl shadow mb-8">
-            <h2 class="text-2xl font-bold mb-4">Airport Hit and Run Zones</h2>
-            <p class="text-gray-600 mb-4">Major airports serving {city.name} with Hit and Run pickup/dropoff:</p>
-            <ul class="space-y-2">
-              {city.airports.map(airport => (
-                <li class="flex items-center gap-2">
-                  <span>✈️</span>
-                  <span>{airport}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <!-- What to Do After Hit and Run -->
+        <div class="bg-white p-6 rounded-xl shadow mb-8">
+          <h2 class="text-2xl font-bold mb-4">Hit and Run in {city.name}? Take These Steps</h2>
+          <ol class="space-y-4">
+            <li class="flex items-start gap-3">
+              <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold">1</span>
+              <div>
+                <h3 class="font-bold">Stay at the Scene & Call 911</h3>
+                <p class="text-gray-600 text-sm">Never chase the fleeing driver. Report to {city.name} police immediately.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold">2</span>
+              <div>
+                <h3 class="font-bold">Document Everything</h3>
+                <p class="text-gray-600 text-sm">Vehicle description, direction of travel, partial plate numbers, debris.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold">3</span>
+              <div>
+                <h3 class="font-bold">Check for Surveillance Cameras</h3>
+                <p class="text-gray-600 text-sm">Nearby businesses may have captured the accident.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold">4</span>
+              <div>
+                <h3 class="font-bold">Seek Medical Attention</h3>
+                <p class="text-gray-600 text-sm">Even minor injuries should be documented. Symptoms often appear later.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold">5</span>
+              <div>
+                <h3 class="font-bold">Contact a Hit and Run Attorney</h3>
+                <p class="text-gray-600 text-sm">We can help investigate, file claims, and pursue compensation.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
 
-        <!-- Unique Factors -->
-        {city.uniqueFactors && city.uniqueFactors.length > 0 && (
-          <div class="bg-gray-50 p-6 rounded-xl mb-8">
-            <h2 class="text-2xl font-bold mb-4">What Makes {city.name} Unique</h2>
-            <ul class="space-y-3">
-              {city.uniqueFactors.map(factor => (
-                <li class="flex items-start gap-3">
-                  <span class="text-secondary text-xl">→</span>
-                  <span>{factor}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <!-- Local Considerations -->
+        <div class="bg-gray-50 p-6 rounded-xl mb-8">
+          <h2 class="text-2xl font-bold mb-4">Local Resources in {city.name}</h2>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3">
+              <span class="text-primary text-xl">→</span>
+              <span><strong>{city.name} Police Department:</strong> File a hit and run report with local police</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-primary text-xl">→</span>
+              <span><strong>Traffic Cameras:</strong> {city.name} may have intersection cameras that captured your accident</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-primary text-xl">→</span>
+              <span><strong>Crime Stoppers:</strong> Anonymous tips may help identify the fleeing driver</span>
+            </li>
+          </ul>
+        </div>
 
         <!-- State Laws Reference -->
         {state && (
           <div class="bg-white p-6 rounded-xl shadow">
-            <h2 class="text-2xl font-bold mb-4">{city.state} Law Applies</h2>
+            <h2 class="text-2xl font-bold mb-4">{city.state} Hit and Run Laws</h2>
             <div class="grid md:grid-cols-2 gap-4">
-              <div>
+              <div class="bg-gray-50 p-4 rounded-lg">
                 <h3 class="font-semibold text-gray-700">Statute of Limitations</h3>
-                <p class="text-lg font-bold text-secondary">{state.statOfLimitations}</p>
+                <p class="text-lg font-bold text-primary">{state.statOfLimitations}</p>
               </div>
-              <div>
+              <div class="bg-gray-50 p-4 rounded-lg">
                 <h3 class="font-semibold text-gray-700">Fault System</h3>
                 <p class="text-lg font-bold">{state.faultSystem}</p>
               </div>
             </div>
             <div class="mt-4">
-              <a href={`/states/${city.stateSlug}/`} class="text-secondary hover:underline font-medium">
-                View all {city.state} Hit and Run laws →
+              <a href={`/states/${city.stateSlug}/`} class="text-primary hover:underline font-medium">
+                View all {city.state} hit and run laws →
               </a>
             </div>
           </div>
@@ -196,11 +199,13 @@ const schema = {
           <LeadForm 
             source={`city-${city.slug}`} 
             title={`Free ${city.name} Case Review`}
-            subtitle={`Speak with an attorney who handles ${city.name} Hit and Run accidents.`}
+            subtitle={`Speak with an attorney who handles ${city.name} hit and run accidents.`}
           />
           
-          <div class="mt-8 bg-gray-100 p-6 rounded-xl">
-            <p class="text-gray-600 mt-2">Available 24/7</p>
+          <div class="mt-8 bg-primary text-white p-6 rounded-xl">
+            <h3 class="font-bold text-lg mb-2">🚗 Time Is Critical</h3>
+            <p class="text-gray-300 text-sm">Surveillance footage gets deleted. Witnesses forget. Evidence disappears. Contact us now to protect your case.</p>
+            <a href="/free-consultation/" class="mt-4 inline-block bg-white text-primary px-4 py-2 rounded font-bold hover:bg-gray-100 transition">Get Free Review</a>
           </div>
         </div>
       </div>

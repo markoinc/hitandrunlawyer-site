@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LeadForm from '../../components/LeadForm.astro';
-import { states, getStateBySlug } from '../../data/states';
+import { states } from '../../data/states';
 import { getCitiesByState } from '../../data/cities';
 
 export function getStaticPaths() {
@@ -22,7 +22,7 @@ const schema = {
   "@context": "https://schema.org",
   "@type": "LegalService",
   "name": `${state.name} Hit and Run Accident Lawyers`,
-  "description": `Find experienced Hit and Run accident lawyers in ${state.name}. Free case evaluation for Hit and Run injury claims.`,
+  "description": `Find experienced hit and run accident lawyers in ${state.name}. Free case evaluation for hit and run injury claims.`,
   "areaServed": {
     "@type": "State",
     "name": state.name
@@ -32,7 +32,7 @@ const schema = {
 
 <BaseLayout 
   title={seoTitle}
-  description={`Find experienced Hit and Run accident lawyers in ${state.name}. ${state.statOfLimitations} statute of limitations. ${state.faultSystem}. Free case evaluation.`}
+  description={`Find experienced hit and run accident lawyers in ${state.name}. ${state.statOfLimitations} statute of limitations. ${state.faultSystem}. Free case evaluation.`}
   schema={schema}
 >
   <!-- Hero -->
@@ -44,7 +44,7 @@ const schema = {
         <span class="text-white">{state.name}</span>
       </nav>
       <h1 class="text-4xl md:text-5xl font-bold mb-4">{state.name} Hit and Run Accident Lawyers</h1>
-      <p class="text-xl text-gray-300">Find experienced Hit and Run accident attorneys in {state.name}</p>
+      <p class="text-xl text-gray-300">Find experienced hit and run accident attorneys in {state.name}</p>
     </div>
   </section>
 
@@ -69,87 +69,109 @@ const schema = {
 
         <!-- Key Laws -->
         <div class="bg-white p-6 rounded-xl shadow mb-8">
-          <h2 class="text-2xl font-bold mb-6">{state.name} Hit and Run Accident Laws</h2>
+          <h2 class="text-2xl font-bold mb-6">{state.name} Hit and Run Laws</h2>
           
           <div class="grid md:grid-cols-2 gap-6">
             <div class="bg-gray-50 p-4 rounded-lg">
               <h3 class="font-semibold text-gray-700">Statute of Limitations</h3>
-              <p class="text-2xl font-bold text-secondary">{state.statOfLimitations}</p>
+              <p class="text-2xl font-bold text-primary">{state.statOfLimitations}</p>
+              <p class="text-sm text-gray-500 mt-1">Time to file your claim</p>
             </div>
             
             <div class="bg-gray-50 p-4 rounded-lg">
               <h3 class="font-semibold text-gray-700">Fault System</h3>
               <p class="text-lg font-bold">{state.faultSystem}</p>
+              <p class="text-sm text-gray-500 mt-1">How fault affects recovery</p>
             </div>
             
             <div class="bg-gray-50 p-4 rounded-lg">
-              <h3 class="font-semibold text-gray-700">Min Insurance</h3>
+              <h3 class="font-semibold text-gray-700">Minimum Insurance</h3>
               <p class="text-lg font-bold">{state.minInsurance}</p>
+              <p class="text-sm text-gray-500 mt-1">Required liability coverage</p>
             </div>
             
             <div class="bg-gray-50 p-4 rounded-lg">
-              <h3 class="font-semibold text-gray-700">TNC Law</h3>
-              <p class="text-lg font-bold">{state.tncLaw ? `Enacted ${state.tncLawYear}` : "No specific law"}</p>
+              <h3 class="font-semibold text-gray-700">UM/UIM Coverage</h3>
+              <p class="text-lg font-bold">Recommended</p>
+              <p class="text-sm text-gray-500 mt-1">Critical for hit and run cases</p>
             </div>
           </div>
         </div>
 
-        <!-- Hit and Run Insurance Tiers -->
+        <!-- Hit and Run Criminal Penalties -->
         <div class="bg-white p-6 rounded-xl shadow mb-8">
-          <h2 class="text-2xl font-bold mb-6">Hit and Run Insurance Coverage in {state.name}</h2>
+          <h2 class="text-2xl font-bold mb-6">Hit and Run Penalties in {state.name}</h2>
           
           <div class="space-y-4">
-            <div class="border-l-4 border-gray-400 pl-4">
-              <h3 class="font-bold">Period 1: App On, Waiting for Request</h3>
-              <p class="text-gray-600">{state.insuranceTiers.waitingForRide}</p>
+            <div class="border-l-4 border-red-500 pl-4">
+              <h3 class="font-bold">Felony Hit and Run (Injury/Death)</h3>
+              <p class="text-gray-600">Hit and run causing injury or death is a felony in {state.name}, punishable by prison time, fines, and license revocation.</p>
             </div>
             
-            <div class="border-l-4 border-secondary pl-4">
-              <h3 class="font-bold">Period 2: En Route to Pickup</h3>
-              <p class="text-gray-600">{state.insuranceTiers.enRoute}</p>
+            <div class="border-l-4 border-orange-500 pl-4">
+              <h3 class="font-bold">Misdemeanor Hit and Run (Property Damage)</h3>
+              <p class="text-gray-600">Hit and run causing only property damage is typically a misdemeanor, but still carries significant penalties.</p>
             </div>
             
-            <div class="border-l-4 border-accent-green pl-4">
-              <h3 class="font-bold">Period 3: Passenger in Vehicle</h3>
-              <p class="text-gray-600">{state.insuranceTiers.enRoute}</p>
+            <div class="border-l-4 border-primary pl-4">
+              <h3 class="font-bold">Civil Liability</h3>
+              <p class="text-gray-600">In addition to criminal penalties, hit and run drivers face civil liability for all damages caused to victims.</p>
             </div>
           </div>
         </div>
 
-        <!-- Unique Laws -->
+        <!-- UM/UIM Information -->
         <div class="bg-white p-6 rounded-xl shadow mb-8">
-          <h2 class="text-2xl font-bold mb-4">{state.name} Hit and Run Regulations</h2>
-          <p class="text-gray-600 mb-4">{state.rideshareRegulations}</p>
+          <h2 class="text-2xl font-bold mb-4">Uninsured Motorist Coverage in {state.name}</h2>
+          <p class="text-gray-600 mb-4">
+            If the hit and run driver is never found, your own Uninsured Motorist (UM) coverage becomes your primary source of compensation in {state.name}. 
+            We strongly recommend all drivers carry UM/UIM coverage to protect themselves in hit and run situations.
+          </p>
           
-          <h3 class="font-bold mb-2">Key Points:</h3>
+          <h3 class="font-bold mb-2">UM Coverage Can Pay For:</h3>
           <ul class="list-disc list-inside space-y-2 text-gray-600">
-            {state.uniqueLaws.map(law => (
-              <li>{law}</li>
-            ))}
+            <li>Medical expenses and future treatment</li>
+            <li>Lost wages and earning capacity</li>
+            <li>Pain and suffering damages</li>
+            <li>Property damage (depending on policy)</li>
           </ul>
         </div>
 
-        <!-- Unique Facts -->
+        <!-- What to Know -->
         <div class="bg-gray-50 p-6 rounded-xl mb-8">
-          <h2 class="text-2xl font-bold mb-4">What You Should Know</h2>
+          <h2 class="text-2xl font-bold mb-4">What {state.name} Hit and Run Victims Should Know</h2>
           <ul class="space-y-3">
-            {state.uniqueFacts.map(fact => (
-              <li class="flex items-start gap-3">
-                <span class="text-secondary text-xl">→</span>
-                <span>{fact}</span>
-              </li>
-            ))}
+            <li class="flex items-start gap-3">
+              <span class="text-primary text-xl">→</span>
+              <span>Report the hit and run to police immediately - this is required for UM claims</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-primary text-xl">→</span>
+              <span>Check nearby businesses for surveillance camera footage</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-primary text-xl">→</span>
+              <span>Document any vehicle description, partial plates, or debris at the scene</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-primary text-xl">→</span>
+              <span>Seek medical attention even for minor injuries - symptoms often appear later</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-primary text-xl">→</span>
+              <span>Contact a hit and run attorney before speaking with insurance adjusters</span>
+            </li>
           </ul>
         </div>
 
-        <!-- Major Markets -->
+        <!-- Major Cities -->
         <div class="bg-white p-6 rounded-xl shadow mb-8">
-          <h2 class="text-2xl font-bold mb-4">Major Hit and Run Markets in {state.name}</h2>
+          <h2 class="text-2xl font-bold mb-4">Find Hit and Run Lawyers in {state.name} Cities</h2>
           <div class="flex flex-wrap gap-3">
             {state.majorMarkets.map(market => {
               const cityData = cities.find(c => c.name === market);
               return cityData ? (
-                <a href={`/cities/${cityData.slug}/`} class="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-secondary-dark transition">
+                <a href={`/cities/${cityData.slug}/`} class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition">
                   {market}
                 </a>
               ) : (
@@ -159,13 +181,13 @@ const schema = {
           </div>
         </div>
 
-        <!-- Cities in State -->
+        <!-- All Cities in State -->
         {cities.length > 0 && (
           <div class="bg-white p-6 rounded-xl shadow">
-            <h2 class="text-2xl font-bold mb-4">Find Lawyers in {state.name} Cities</h2>
+            <h2 class="text-2xl font-bold mb-4">All {state.name} Cities We Cover</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
               {cities.map(city => (
-                <a href={`/cities/${city.slug}/`} class="text-secondary hover:underline">
+                <a href={`/cities/${city.slug}/`} class="text-primary hover:underline">
                   {city.name}
                 </a>
               ))}
@@ -180,17 +202,13 @@ const schema = {
           <LeadForm 
             source={`state-${state.slug}`} 
             title={`Free ${state.name} Case Review`}
-            subtitle={`Speak with an attorney who knows ${state.name}'s Hit and Run laws.`}
+            subtitle={`Speak with an attorney who knows ${state.name}'s hit and run laws.`}
           />
           
-          <div class="mt-8 bg-gray-100 p-6 rounded-xl">
-            <p class="text-gray-600 mt-2">Available 24/7</p>
-          </div>
-          
           <div class="mt-8 bg-primary text-white p-6 rounded-xl">
-            <h3 class="font-bold text-lg mb-2">Annual Hit and Run Accidents</h3>
-            <p class="text-4xl font-bold text-secondary">{state.annualAccidents.toLocaleString()}</p>
-            <p class="text-gray-400 text-sm mt-2">Estimated in {state.name}</p>
+            <h3 class="font-bold text-lg mb-2">🚗 Don't Wait</h3>
+            <p class="text-gray-300 text-sm">Evidence disappears quickly in hit and run cases. Surveillance footage is often deleted within days. Contact us now.</p>
+            <a href="/free-consultation/" class="mt-4 inline-block bg-white text-primary px-4 py-2 rounded font-bold hover:bg-gray-100 transition">Get Free Review</a>
           </div>
         </div>
       </div>

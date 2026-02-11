@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LeadForm from '../../components/LeadForm.astro';
-import { articles, getArticleBySlug, getArticlesByCategory, getRecentArticles } from '../../data/articles';
+import { articles, getArticlesByCategory } from '../../data/articles';
 
 export function getStaticPaths() {
   return articles.map(article => ({
@@ -12,7 +12,7 @@ export function getStaticPaths() {
 
 const { article } = Astro.props;
 const relatedArticles = getArticlesByCategory(article.category).filter(a => a.slug !== article.slug).slice(0, 3);
-const recentArticles = getRecentArticles(5).filter(a => a.slug !== article.slug).slice(0, 3);
+const recentArticles = articles.slice(0, 5).filter(a => a.slug !== article.slug).slice(0, 3);
 
 // Truncate title for SEO - max 31 chars (with 23-char suffix = 54, buffer for HTML entities like &#39;)
 function truncateTitle(title: string, maxLength: number = 31): string {
@@ -31,7 +31,7 @@ const schema = {
   "datePublished": article.publishDate,
   "author": {
     "@type": "Organization",
-    "name": "Hit and Run Lawyers Near Me"
+    "name": "Hit and Run Lawyer"
   }
 };
 ---
@@ -66,38 +66,45 @@ const schema = {
           
           <h2>Understanding {article.title}</h2>
           <p>
-            Hit and Run and Hit and Run have transformed transportation, but accidents involving Hit and Run vehicles create complex legal situations. 
-            Whether you're a passenger, another driver, a pedestrian, or the Hit and Run driver yourself, understanding your rights is critical.
+            Hit and run accidents create uniquely challenging legal situations. When a driver flees the scene, 
+            victims face both the trauma of their injuries and the frustration of not knowing who caused them. 
+            Understanding your rights and options is critical to obtaining fair compensation.
           </p>
 
           <h2>Key Points</h2>
           <ul>
-            <li>Hit and Run carries $1 million in liability insurance when passengers are in the vehicle</li>
-            <li>Insurance coverage varies based on the driver's app status at the time of the accident</li>
-            <li>Multiple parties may be liable: the driver, Hit and Run, other drivers, or vehicle manufacturers</li>
-            <li>Statute of limitations varies by state - act quickly to preserve your rights</li>
+            <li>Hit and run accidents happen every 43 seconds in the United States</li>
+            <li>Even if the driver is never found, you may still recover compensation through UM/UIM insurance</li>
+            <li>Multiple sources of compensation may be available depending on your situation</li>
+            <li>Statute of limitations varies by state - some allow only 1 year to file a claim</li>
+            <li>Evidence preservation is crucial - surveillance footage is often deleted within days</li>
           </ul>
 
           <h2>Your Legal Options</h2>
           <p>
-            If you've been involved in a Hit and Run accident, you may be entitled to compensation for medical expenses, 
-            lost wages, pain and suffering, and other damages. The key is understanding who is liable and which 
-            insurance policies apply to your situation.
+            If you've been the victim of a hit and run accident, you may be entitled to compensation for medical expenses, 
+            lost wages, pain and suffering, and other damages. The primary avenues for recovery include:
           </p>
+          <ul>
+            <li><strong>Uninsured Motorist (UM) Coverage:</strong> Your own policy can cover you when the at-fault driver is unidentified</li>
+            <li><strong>Lawsuit Against Driver:</strong> If the driver is found, you can pursue their insurance or sue directly</li>
+            <li><strong>Crime Victim Compensation:</strong> Some states offer funds to help crime victims, including hit and run victims</li>
+          </ul>
 
           <h2>What to Do Next</h2>
           <ol>
             <li>Seek medical attention immediately, even if injuries seem minor</li>
-            <li>Document everything: photos, witness information, police reports</li>
-            <li>Request your Hit and Run trip receipt and ride details through the app</li>
-            <li>Do not give recorded statements to insurance companies without legal advice</li>
-            <li>Consult with an experienced Hit and Run accident attorney</li>
+            <li>Document everything: vehicle description, direction of travel, debris, witness information</li>
+            <li>File a police report - required for UM claims and driver identification</li>
+            <li>Check for surveillance cameras at nearby businesses</li>
+            <li>Report the accident to your insurance company</li>
+            <li>Consult with an experienced hit and run accident attorney</li>
           </ol>
 
-          <div class="bg-secondary/10 p-6 rounded-xl mt-8">
+          <div class="bg-primary/10 p-6 rounded-xl mt-8">
             <h3 class="text-xl font-bold mb-2">Need Legal Help?</h3>
-            <p class="mb-4">If you have questions about {article.title.toLowerCase()}, speak with an experienced Hit and Run accident attorney today.</p>
-            <a href="/free-consultation/" class="bg-secondary text-white px-6 py-3 rounded-lg font-bold hover:bg-secondary-dark transition inline-block">
+            <p class="mb-4">If you have questions about {article.title.toLowerCase()}, speak with an experienced hit and run accident attorney today.</p>
+            <a href="/free-consultation/" class="bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-primary-dark transition inline-block">
               Get Free Case Review →
             </a>
           </div>
