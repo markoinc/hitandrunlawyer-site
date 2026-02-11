@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LeadForm from '../../components/LeadForm.astro';
+import { states, getOneYearSOLStates, getContributoryNegligenceStates, getLongSOLStates } from '../../data/states';
+
+const urgentStates = getOneYearSOLStates();
+const cnStates = getContributoryNegligenceStates();
+const longSOLStates = getLongSOLStates();
+
+const regions = {
+  "Northeast": states.filter(s => ["CT", "DE", "ME", "MD", "MA", "NH", "NJ", "NY", "PA", "RI", "VT", "DC"].includes(s.abbr)),
+  "Southeast": states.filter(s => ["AL", "FL", "GA", "KY", "NC", "SC", "TN", "VA", "WV"].includes(s.abbr)),
+  "Midwest": states.filter(s => ["IL", "IN", "IA", "KS", "MI", "MN", "MO", "NE", "ND", "OH", "SD", "WI"].includes(s.abbr)),
+  "Southwest": states.filter(s => ["AZ", "NM", "OK", "TX"].includes(s.abbr)),
+  "West": states.filter(s => ["AK", "CA", "CO", "HI", "ID", "MT", "NV", "OR", "UT", "WA", "WY"].includes(s.abbr)),
+  "South": states.filter(s => ["AR", "LA", "MS"].includes(s.abbr))
+};
+---
+
+<BaseLayout 
+  title="Hit and Run Accident Lawyers by State" 
+  description="Find experienced Hit and Run accident lawyers in your state. State-specific Hit and Run laws, insurance requirements, and statute of limitations information."
+>
+  <section class="bg-primary text-white py-12">
+    <div class="max-w-7xl mx-auto px-4">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Find Hit and Run Lawyers by State</h1>
+      <p class="text-xl text-gray-300">State-specific Hit and Run laws, insurance requirements, and experienced attorneys</p>
+    </div>
+  </section>
+
+  <!-- Urgent States Warning -->
+  <section class="bg-red-50 py-8">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="bg-red-100 border-l-4 border-red-500 p-4 rounded-r-lg">
+        <h2 class="font-bold text-red-800 text-lg">⚠️ 1-Year Deadline States</h2>
+        <p class="text-red-700">Louisiana and Tennessee have only a 1-year statute of limitations. Act immediately if your accident occurred in these states!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- State Grid by Region -->
+  <section class="py-12">
+    <div class="max-w-7xl mx-auto px-4">
+      {Object.entries(regions).map(([region, regionStates]) => (
+        <div class="mb-12">
+          <h2 class="text-2xl font-bold mb-6 pb-2 border-b-2 border-secondary">{region}</h2>
+          <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {regionStates.map(state => (
+              <a href={`/states/${state.slug}/`} class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition border-l-4 border-transparent hover:border-secondary">
+                <h3 class="font-bold text-lg">{state.name}</h3>
+                <div class="text-sm text-gray-600 mt-1">
+                  <span class={state.statOfLimitations === "1 year" ? "text-red-600 font-semibold" : ""}>
+                    SOL: {state.statOfLimitations}
+                  </span>
+                </div>
+                <div class="text-sm text-gray-500">
+                  {state.faultSystem.includes("Contributory") ? (
+                    <span class="text-orange-600">⚠️ Contributory negligence</span>
+                  ) : (
+                    <span>{state.faultSystem}</span>
+                  )}
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Key State Categories -->
+  <section class="py-12 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-8">Important State Categories</h2>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Short SOL -->
+        <div class="bg-white p-6 rounded-xl shadow">
+          <h3 class="font-bold text-xl mb-4 text-red-600">⏰ 1-Year Statute States</h3>
+          <p class="text-gray-600 mb-4">Act immediately - only 1 year to file:</p>
+          <ul class="space-y-2">
+            {urgentStates.map(state => (
+              <li>
+                <a href={`/states/${state.slug}/`} class="text-secondary hover:underline font-medium">{state.name}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Contributory Negligence -->
+        <div class="bg-white p-6 rounded-xl shadow">
+          <h3 class="font-bold text-xl mb-4 text-orange-600">⚠️ Contributory Negligence States</h3>
+          <p class="text-gray-600 mb-4">Claims are difficult - any fault bars recovery:</p>
+          <ul class="space-y-2">
+            {cnStates.map(state => (
+              <li>
+                <a href={`/states/${state.slug}/`} class="text-secondary hover:underline font-medium">{state.name}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Long SOL -->
+        <div class="bg-white p-6 rounded-xl shadow">
+          <h3 class="font-bold text-xl mb-4 text-green-600">✅ 4+ Year Statute States</h3>
+          <p class="text-gray-600 mb-4">More time to file your claim:</p>
+          <ul class="space-y-2">
+            {longSOLStates.slice(0, 6).map(state => (
+              <li>
+                <a href={`/states/${state.slug}/`} class="text-secondary hover:underline font-medium">{state.name} ({state.statOfLimitations})</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-12 bg-primary text-white">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-4">Not Sure About Your State's Laws?</h2>
+      <p class="text-gray-300 mb-8">Get a free case evaluation from an attorney who knows your state's Hit and Run laws.</p>
+      <a href="/free-consultation/" class="bg-secondary text-white px-8 py-4 rounded-lg font-bold hover:bg-secondary-light transition inline-block">
+        Get Free Case Review
+      </a>
+    </div>
+  </section>
+</BaseLayout>

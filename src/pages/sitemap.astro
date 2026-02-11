@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { states } from '../data/states';
+import { cities } from '../data/cities';
+import { articles } from '../data/articles';
+import { caseTypes } from '../data/case-types';
+import { resources } from '../data/resources';
+---
+
+<BaseLayout 
+  title="Sitemap"
+  description="Complete sitemap of Hit and Run Lawyers Near Me. Find Hit and Run accident lawyers by state, city, case type, and browse our resources."
+>
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4">
+      <h1 class="text-4xl font-bold mb-8">Sitemap</h1>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Main Pages -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+          <h2 class="text-xl font-bold mb-4 text-secondary">Main Pages</h2>
+          <ul class="space-y-2">
+            <li><a href="/" class="text-primary hover:underline">Home</a></li>
+            <li><a href="/about/" class="text-primary hover:underline">About Us</a></li>
+            <li><a href="/contact/" class="text-primary hover:underline">Contact</a></li>
+            <li><a href="/free-consultation/" class="text-primary hover:underline">Free Consultation</a></li>
+            <li><a href="/faq/" class="text-primary hover:underline">FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal Pages -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+          <h2 class="text-xl font-bold mb-4 text-secondary">Legal</h2>
+          <ul class="space-y-2">
+            <li><a href="/privacy-policy/" class="text-primary hover:underline">Privacy Policy</a></li>
+            <li><a href="/terms-of-service/" class="text-primary hover:underline">Terms of Service</a></li>
+            <li><a href="/disclaimer/" class="text-primary hover:underline">Legal Disclaimer</a></li>
+          </ul>
+        </div>
+
+        <!-- Case Types -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+          <h2 class="text-xl font-bold mb-4 text-secondary">Case Types</h2>
+          <ul class="space-y-2">
+            {caseTypes.slice(0, 10).map(type => (
+              <li><a href={`/case-types/${type.slug}/`} class="text-primary hover:underline">{type.name}</a></li>
+            ))}
+            {caseTypes.length > 10 && (
+              <li><a href="/case-types/" class="text-secondary font-semibold hover:underline">View all {caseTypes.length} case types →</a></li>
+            )}
+          </ul>
+        </div>
+
+        <!-- Resources -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+          <h2 class="text-xl font-bold mb-4 text-secondary">Resources</h2>
+          <ul class="space-y-2">
+            {resources.slice(0, 10).map(resource => (
+              <li><a href={`/resources/${resource.slug}/`} class="text-primary hover:underline">{resource.title}</a></li>
+            ))}
+            {resources.length > 10 && (
+              <li><a href="/resources/" class="text-secondary font-semibold hover:underline">View all {resources.length} resources →</a></li>
+            )}
+          </ul>
+        </div>
+
+        <!-- Blog -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+          <h2 class="text-xl font-bold mb-4 text-secondary">Blog Articles</h2>
+          <ul class="space-y-2">
+            {articles.slice(0, 10).map(article => (
+              <li><a href={`/blog/${article.slug}/`} class="text-primary hover:underline">{article.title}</a></li>
+            ))}
+            {articles.length > 10 && (
+              <li><a href="/blog/" class="text-secondary font-semibold hover:underline">View all {articles.length} articles →</a></li>
+            )}
+          </ul>
+        </div>
+
+        <!-- States Overview -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+          <h2 class="text-xl font-bold mb-4 text-secondary">Browse by State</h2>
+          <p class="text-gray-600 mb-3">Find Hit and Run accident lawyers in all 50 states + DC</p>
+          <a href="/states/" class="text-secondary font-semibold hover:underline">View all {states.length} states →</a>
+        </div>
+      </div>
+
+      <!-- All States -->
+      <div class="mt-12">
+        <h2 class="text-2xl font-bold mb-6">All States ({states.length})</h2>
+        <div class="bg-white rounded-xl shadow-md p-6">
+          <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+            {states.map(state => (
+              <a href={`/states/${state.slug}/`} class="text-primary hover:underline text-sm">{state.name}</a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Cities -->
+      <div class="mt-12">
+        <h2 class="text-2xl font-bold mb-6">Top Cities ({cities.length} total)</h2>
+        <div class="bg-white rounded-xl shadow-md p-6">
+          <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+            {cities.slice(0, 48).map(city => (
+              <a href={`/cities/${city.slug}/`} class="text-primary hover:underline text-sm">{city.name}</a>
+            ))}
+          </div>
+          {cities.length > 48 && (
+            <div class="mt-4 text-center">
+              <a href="/cities/" class="text-secondary font-semibold hover:underline">View all {cities.length} cities →</a>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

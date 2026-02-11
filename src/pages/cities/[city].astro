@@ -1,0 +1,209 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LeadForm from '../../components/LeadForm.astro';
+import { cities, getCityBySlug } from '../../data/cities';
+import { getStateBySlug } from '../../data/states';
+
+export function getStaticPaths() {
+  return cities.map(city => ({
+    params: { city: city.slug },
+    props: { city }
+  }));
+}
+
+const { city } = Astro.props;
+const state = getStateBySlug(city.stateSlug);
+
+// Build SEO title - keep under 37 chars so with suffix stays under 60
+const fullCityTitle = `${city.name} Hit and Run Accident Lawyers`;
+const seoTitle = fullCityTitle.length <= 37 ? fullCityTitle : `${city.name} Hit and Run Lawyers`;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "LegalService",
+  "name": `${city.name} Hit and Run Accident Lawyers`,
+  "description": `Find experienced Hit and Run accident lawyers in ${city.name}, ${city.stateAbbr}. Free case evaluation.`,
+  "areaServed": {
+    "@type": "City",
+    "name": city.name,
+    "containedInPlace": {
+      "@type": "State",
+      "name": city.state
+    }
+  }
+};
+---
+
+<BaseLayout 
+  title={seoTitle}
+  description={`Find experienced Hit and Run accident lawyers in ${city.name}, ${city.stateAbbr}. ${state?.statOfLimitations} statute of limitations. Free case evaluation.`}
+  schema={schema}
+>
+  <!-- Hero -->
+  <section class="bg-primary text-white py-12">
+    <div class="max-w-7xl mx-auto px-4">
+      <nav class="text-sm text-gray-400 mb-4">
+        <a href="/" class="hover:text-white">Home</a> → 
+        <a href="/cities/" class="hover:text-white">Cities</a> → 
+        <a href={`/states/${city.stateSlug}/`} class="hover:text-white">{city.state}</a> → 
+        <span class="text-white">{city.name}</span>
+      </nav>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">{city.name} Hit and Run Accident Lawyers</h1>
+      <p class="text-xl text-gray-300">Experienced Hit and Run accident attorneys in {city.name}, {city.stateAbbr}</p>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 py-12">
+    <div class="grid lg:grid-cols-3 gap-12">
+      <!-- Main Content -->
+      <div class="lg:col-span-2">
+        <!-- Urgent Warnings -->
+        {state?.statOfLimitations === "1 year" && (
+          <div class="bg-red-100 border-l-4 border-red-500 p-4 mb-8 rounded-r-lg">
+            <h2 class="font-bold text-red-800 text-lg">⚠️ URGENT: 1-Year Deadline in {city.state}</h2>
+            <p class="text-red-700">Your state has only a 1-year statute of limitations. Contact an attorney immediately.</p>
+          </div>
+        )}
+
+        {state?.faultSystem.includes("Contributory") && (
+          <div class="bg-orange-100 border-l-4 border-orange-500 p-4 mb-8 rounded-r-lg">
+            <h2 class="font-bold text-orange-800 text-lg">⚠️ Contributory Negligence State</h2>
+            <p class="text-orange-700">{city.state} follows contributory negligence rules. An experienced attorney is critical for your claim.</p>
+          </div>
+        )}
+
+        <!-- City Overview -->
+        <div class="bg-white p-6 rounded-xl shadow mb-8">
+          <h2 class="text-2xl font-bold mb-4">Hit and Run Accidents in {city.name}</h2>
+          <p class="text-gray-600 mb-4">
+            {city.name} is {city.marketRank ? `ranked #${city.marketRank} among US Hit and Run markets` : "a significant Hit and Run market"} with 
+            {city.population.toLocaleString()} residents. {city.uniqueFactors?.[0] || "The city sees significant Hit and Run activity."} 
+            If you've been injured in a Hit and Run accident in {city.name}, you may be entitled to compensation.
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-4 mt-6">
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h3 class="font-semibold text-gray-700">Population</h3>
+              <p class="text-2xl font-bold">{city.population.toLocaleString()}</p>
+            </div>
+            {city.marketRank && (
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <h3 class="font-semibold text-gray-700">Hit and Run Market Rank</h3>
+                <p class="text-2xl font-bold text-secondary">#{city.marketRank}</p>
+              </div>
+            )}
+            {city.annualTrips && (
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <h3 class="font-semibold text-gray-700">Annual Hit and Run Trips</h3>
+                <p class="text-2xl font-bold">{(city.annualTrips / 1000000).toFixed(1)}M</p>
+              </div>
+            )}
+            {city.averageWaitTime && (
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <h3 class="font-semibold text-gray-700">Avg Wait Time</h3>
+                <p class="text-2xl font-bold">{city.averageWaitTime}</p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <!-- Busy Areas -->
+        {city.busyAreas && city.busyAreas.length > 0 && (
+          <div class="bg-white p-6 rounded-xl shadow mb-8">
+            <h2 class="text-2xl font-bold mb-4">High Hit and Run Activity Areas</h2>
+            <p class="text-gray-600 mb-4">Areas in {city.name} with the highest concentration of Hit and Run/Hit and Run activity:</p>
+            <div class="flex flex-wrap gap-2">
+              {city.busyAreas.map(area => (
+                <span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full text-sm">{area}</span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <!-- Dangerous Intersections -->
+        {city.dangerousIntersections && city.dangerousIntersections.length > 0 && (
+          <div class="bg-white p-6 rounded-xl shadow mb-8">
+            <h2 class="text-2xl font-bold mb-4">High-Risk Intersections</h2>
+            <p class="text-gray-600 mb-4">Intersections in {city.name} with frequent Hit and Run accidents:</p>
+            <ul class="space-y-2">
+              {city.dangerousIntersections.map(intersection => (
+                <li class="flex items-center gap-2">
+                  <span class="text-red-500">⚠️</span>
+                  <span>{intersection}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <!-- Airports -->
+        {city.airports && city.airports.length > 0 && (
+          <div class="bg-white p-6 rounded-xl shadow mb-8">
+            <h2 class="text-2xl font-bold mb-4">Airport Hit and Run Zones</h2>
+            <p class="text-gray-600 mb-4">Major airports serving {city.name} with Hit and Run pickup/dropoff:</p>
+            <ul class="space-y-2">
+              {city.airports.map(airport => (
+                <li class="flex items-center gap-2">
+                  <span>✈️</span>
+                  <span>{airport}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <!-- Unique Factors -->
+        {city.uniqueFactors && city.uniqueFactors.length > 0 && (
+          <div class="bg-gray-50 p-6 rounded-xl mb-8">
+            <h2 class="text-2xl font-bold mb-4">What Makes {city.name} Unique</h2>
+            <ul class="space-y-3">
+              {city.uniqueFactors.map(factor => (
+                <li class="flex items-start gap-3">
+                  <span class="text-secondary text-xl">→</span>
+                  <span>{factor}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <!-- State Laws Reference -->
+        {state && (
+          <div class="bg-white p-6 rounded-xl shadow">
+            <h2 class="text-2xl font-bold mb-4">{city.state} Law Applies</h2>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <h3 class="font-semibold text-gray-700">Statute of Limitations</h3>
+                <p class="text-lg font-bold text-secondary">{state.statOfLimitations}</p>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-700">Fault System</h3>
+                <p class="text-lg font-bold">{state.faultSystem}</p>
+              </div>
+            </div>
+            <div class="mt-4">
+              <a href={`/states/${city.stateSlug}/`} class="text-secondary hover:underline font-medium">
+                View all {city.state} Hit and Run laws →
+              </a>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <!-- Sidebar -->
+      <div class="lg:col-span-1">
+        <div class="sticky top-24">
+          <LeadForm 
+            source={`city-${city.slug}`} 
+            title={`Free ${city.name} Case Review`}
+            subtitle={`Speak with an attorney who handles ${city.name} Hit and Run accidents.`}
+          />
+          
+          <div class="mt-8 bg-gray-100 p-6 rounded-xl">
+            <p class="text-gray-600 mt-2">Available 24/7</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

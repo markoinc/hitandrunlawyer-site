@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LeadForm from '../../components/LeadForm.astro';
+import { resources, getResourceBySlug } from '../../data/resources';
+
+export function getStaticPaths() {
+  return resources.map(resource => ({
+    params: { resource: resource.slug },
+    props: { resource }
+  }));
+}
+
+const { resource } = Astro.props;
+const otherResources = resources.filter(r => r.slug !== resource.slug).slice(0, 5);
+
+// Truncate title for SEO - max 31 chars for 60 total with suffix
+function truncateTitle(title: string, max: number = 31): string {
+  if (title.length <= max) return title;
+  const t = title.substring(0, max - 3);
+  const space = t.lastIndexOf(' ');
+  return (space > 10 ? t.substring(0, space) : t) + '...';
+}
+const seoTitle = truncateTitle(resource.title);
+---
+
+<BaseLayout 
+  title={seoTitle}
+  description={resource.description}
+>
+  <section class="bg-primary text-white py-12">
+    <div class="max-w-4xl mx-auto px-4">
+      <nav class="text-sm text-gray-400 mb-4">
+        <a href="/" class="hover:text-white">Home</a> → 
+        <a href="/resources/" class="hover:text-white">Resources</a> → 
+        <span class="text-white">{resource.category}</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold mb-4">{resource.title}</h1>
+      <div class="text-gray-300">📖 {resource.readTime} read</div>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 py-12">
+    <div class="grid lg:grid-cols-3 gap-12">
+      <article class="lg:col-span-2 prose prose-lg max-w-none">
+        <div class="bg-white p-8 rounded-xl shadow">
+          <p class="text-xl text-gray-600 mb-8 border-l-4 border-secondary pl-4">{resource.description}</p>
+          
+          <h2>Overview</h2>
+          <p>
+            This comprehensive guide covers everything you need to know about {resource.title.toLowerCase()}. 
+            Whether you're a Hit and Run passenger, driver, or someone injured by a Hit and Run vehicle, 
+            understanding your rights is the first step toward fair compensation.
+          </p>
+
+          <h2>Key Information</h2>
+          <ul>
+            <li>Hit and Run provides up to $1 million in liability coverage during active rides</li>
+            <li>Coverage varies based on the driver's status (app on/off, waiting, en route, trip in progress)</li>
+            <li>The statute of limitations varies by state - some are as short as 1 year</li>
+            <li>Multiple insurance policies may apply to your claim</li>
+          </ul>
+
+          <h2>Important Steps</h2>
+          <ol>
+            <li><strong>Document everything:</strong> Photos, videos, witness info, police reports</li>
+            <li><strong>Seek medical attention:</strong> Even for seemingly minor injuries</li>
+            <li><strong>Save your Hit and Run receipt:</strong> Contains critical trip and driver information</li>
+            <li><strong>Don't sign anything:</strong> Avoid giving statements to insurance adjusters</li>
+            <li><strong>Contact an attorney:</strong> Get legal advice before making decisions</li>
+          </ol>
+
+          <h2>Common Questions</h2>
+          <p>
+            Many Hit and Run accident victims have questions about who is responsible, what insurance applies, 
+            and how much their claim might be worth. Every case is different, which is why speaking 
+            with an experienced Hit and Run accident attorney is so important.
+          </p>
+
+          <div class="bg-secondary/10 p-6 rounded-xl mt-8">
+            <h3 class="text-xl font-bold mb-2">Get Personalized Guidance</h3>
+            <p class="mb-4">Have questions about your specific situation? Speak with an attorney who specializes in Hit and Run accident cases.</p>
+            <a href="/free-consultation/" class="bg-secondary text-white px-6 py-3 rounded-lg font-bold hover:bg-secondary-dark transition inline-block">
+              Get Free Case Review →
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <aside class="lg:col-span-1">
+        <div class="sticky top-24 space-y-8">
+          <LeadForm 
+            source={`resource-${resource.slug}`}
+            title="Free Case Review"
+            subtitle="Get answers specific to your situation."
+            compact={true}
+          />
+          
+          <div class="bg-white p-6 rounded-xl shadow">
+            <h3 class="font-bold text-lg mb-4">More Resources</h3>
+            <ul class="space-y-3">
+              {otherResources.map(or => (
+                <li>
+                  <a href={`/resources/${or.slug}/`} class="text-secondary hover:underline text-sm">{or.title}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

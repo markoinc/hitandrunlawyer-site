@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { caseTypes } from '../../data/case-types';
+---
+
+<BaseLayout 
+  title="Hit and Run Accident Case Types" 
+  description="We handle all types of Hit and Run and Hit and Run accident cases. Learn about passenger claims, pedestrian accidents, wrongful death, and more."
+>
+  <section class="bg-primary text-white py-12">
+    <div class="max-w-7xl mx-auto px-4">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Hit and Run Accident Case Types</h1>
+      <p class="text-xl text-gray-300">We handle every type of Hit and Run accident claim</p>
+    </div>
+  </section>
+
+  <section class="py-12">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {caseTypes.map(caseType => (
+          <a href={`/case-types/${caseType.slug}/`} class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-transparent hover:border-secondary">
+            <h2 class="font-bold text-xl mb-2">{caseType.shortTitle}</h2>
+            <p class="text-gray-600 text-sm mb-4">{caseType.description}</p>
+            <div class="text-secondary font-semibold">
+              Typical settlement: {caseType.averageSettlement}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 bg-primary text-white">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-4">Not Sure What Type of Case You Have?</h2>
+      <p class="text-gray-300 mb-8">Our attorneys can evaluate your situation and explain your options.</p>
+      <a href="/free-consultation/" class="bg-secondary text-white px-8 py-4 rounded-lg font-bold hover:bg-secondary-light transition inline-block">
+        Get Free Case Review
+      </a>
+    </div>
+  </section>
+</BaseLayout>

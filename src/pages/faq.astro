@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LeadForm from '../components/LeadForm.astro';
+
+const faqs = [
+  {
+    question: "What should I do immediately after being a victim of a hit and run?",
+    answer: "First, call 911 and seek medical attention even if you feel fine. Try to remember any details about the vehicle—make, model, color, license plate (even partial), direction of travel, and driver description. Document the scene with photos including skid marks, debris, and your injuries. Get contact information from any witnesses. File a police report immediately, as this is crucial for your insurance claim and any future legal action."
+  },
+  {
+    question: "Can I still get compensation if the hit and run driver is never found?",
+    answer: "Yes! This is where your own Uninsured Motorist (UM) or Underinsured Motorist (UIM) coverage becomes critical. Most states require or offer UM/UIM coverage, which protects you when the at-fault driver cannot be identified or has no insurance. An experienced hit and run attorney can help you file a claim against your own policy to recover medical expenses, lost wages, and pain and suffering."
+  },
+  {
+    question: "How does UM/UIM insurance work for hit and run victims?",
+    answer: "Uninsured Motorist (UM) coverage steps in when the at-fault driver has no insurance—including when they flee the scene and can't be identified. Your UM policy essentially treats you as if the unidentified driver had insurance with your limits. This can cover medical bills, lost income, pain and suffering, and property damage depending on your policy. Texas requires UM coverage unless you reject it in writing."
+  },
+  {
+    question: "What evidence is important in a hit and run case?",
+    answer: "Critical evidence includes: the police report, photos/videos of the scene and your injuries, witness statements and contact info, surveillance camera footage from nearby businesses or traffic cameras, vehicle debris left at the scene, your medical records, and any vehicle descriptions you or witnesses can provide. Time is critical—surveillance footage is often deleted within days, so acting fast matters."
+  },
+  {
+    question: "How long do I have to file a hit and run accident lawsuit in Texas?",
+    answer: "In Texas, the statute of limitations for personal injury claims is generally 2 years from the date of the accident. However, you should report the hit and run to police and your insurance company immediately. Evidence disappears quickly, and witnesses forget details. Even if the driver is never found, you still need to act within the statute of limitations to pursue a UM/UIM claim."
+  },
+  {
+    question: "Can the hit and run driver be found after they flee?",
+    answer: "Yes, in many cases. Attorneys and investigators can help locate hit and run drivers through: surveillance footage from traffic cameras and nearby businesses, debris and paint transfer analysis, witness descriptions, social media posts, auto body shop inquiries (the fleeing vehicle is often damaged), and working with police investigators. Finding the driver opens additional avenues for compensation beyond your UM coverage."
+  },
+  {
+    question: "Is a hit and run a criminal offense?",
+    answer: "Yes, hit and run (also called 'failure to stop and render aid') is a crime in Texas and all states. If the accident caused injury or death, it's typically a felony. While the criminal case is separate from your civil claim for damages, a criminal conviction can strengthen your civil case. The police investigation may also uncover evidence useful for your injury claim."
+  },
+  {
+    question: "What compensation can I receive as a hit and run victim?",
+    answer: "You may be entitled to compensation for: medical bills (current and future), lost wages and loss of earning capacity, pain and suffering, property damage to your vehicle, emotional distress, physical impairment or disfigurement, and loss of quality of life. The amount depends on the severity of your injuries and your insurance coverage limits."
+  },
+  {
+    question: "How much does it cost to hire a hit and run accident lawyer?",
+    answer: "Most hit and run accident attorneys work on a contingency fee basis, meaning you pay nothing upfront. The attorney only gets paid if you win your case, typically taking a percentage (usually 33-40%) of your settlement or verdict. Initial consultations are free, so there's no risk in speaking with an attorney about your case."
+  },
+  {
+    question: "What if I was partially at fault in the accident?",
+    answer: "Texas follows a 'modified comparative fault' rule. You can recover damages as long as you are less than 51% at fault. Your compensation will be reduced by your percentage of fault. However, in most hit and run cases, the fleeing driver bears full responsibility—leaving the scene typically indicates they know they were at fault."
+  },
+  {
+    question: "Should I report the hit and run to my insurance company?",
+    answer: "Yes, report it to your insurance company as soon as possible. You'll need to file a UM/UIM claim to recover compensation if the driver isn't found. Provide all details you have, but don't accept a quick settlement before understanding the full extent of your injuries. An attorney can help negotiate with your insurance company to maximize your recovery."
+  },
+  {
+    question: "How long does a hit and run case take to settle?",
+    answer: "Most cases settle within 6-18 months, though complex cases or severe injuries may take longer. Timeline factors include: whether the driver is ever identified, the extent of your injuries and treatment timeline, how cooperative your insurance company is, whether litigation becomes necessary, and the complexity of proving your damages."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout 
+  title="FAQ | Hit and Run Accident Lawyer"
+  description="Frequently asked questions about hit and run accident claims, UM/UIM insurance coverage, finding the driver, and your legal rights as a victim."
+  schema={faqSchema}
+>
+  <section class="py-20 bg-gradient-to-br from-primary to-primary-dark text-white">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6">Frequently Asked Questions</h1>
+      <p class="text-xl text-gray-200">
+        Get answers to common questions about hit and run accident claims, insurance coverage, and your legal rights.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="space-y-6">
+        {faqs.map((faq, index) => (
+          <div class="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition">
+            <h2 class="text-lg font-bold text-primary mb-3 flex items-start gap-3">
+              <span class="bg-secondary text-white w-8 h-8 rounded-full flex items-center justify-center text-sm flex-shrink-0">
+                {index + 1}
+              </span>
+              {faq.question}
+            </h2>
+            <p class="text-gray-600 ml-11">{faq.answer}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-8">Still Have Questions?</h2>
+      <LeadForm source="faq-page" title="Get Personalized Answers" subtitle="Speak with an attorney who can answer your specific questions about your hit and run accident case." />
+    </div>
+  </section>
+</BaseLayout>

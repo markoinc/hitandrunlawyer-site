@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LeadForm from '../../components/LeadForm.astro';
+import { articles, getArticleBySlug, getArticlesByCategory, getRecentArticles } from '../../data/articles';
+
+export function getStaticPaths() {
+  return articles.map(article => ({
+    params: { slug: article.slug },
+    props: { article }
+  }));
+}
+
+const { article } = Astro.props;
+const relatedArticles = getArticlesByCategory(article.category).filter(a => a.slug !== article.slug).slice(0, 3);
+const recentArticles = getRecentArticles(5).filter(a => a.slug !== article.slug).slice(0, 3);
+
+// Truncate title for SEO - max 31 chars (with 23-char suffix = 54, buffer for HTML entities like &#39;)
+function truncateTitle(title: string, maxLength: number = 31): string {
+  if (title.length <= maxLength) return title;
+  const truncated = title.substring(0, maxLength - 3);
+  const lastSpace = truncated.lastIndexOf(' ');
+  return (lastSpace > 10 ? truncated.substring(0, lastSpace) : truncated) + '...';
+}
+const seoTitle = truncateTitle(article.title);
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": article.title,
+  "description": article.description,
+  "datePublished": article.publishDate,
+  "author": {
+    "@type": "Organization",
+    "name": "Hit and Run Lawyers Near Me"
+  }
+};
+---
+
+<BaseLayout 
+  title={seoTitle}
+  description={article.description}
+  schema={schema}
+>
+  <section class="bg-primary text-white py-12">
+    <div class="max-w-4xl mx-auto px-4">
+      <nav class="text-sm text-gray-400 mb-4">
+        <a href="/" class="hover:text-white">Home</a> → 
+        <a href="/blog/" class="hover:text-white">Blog</a> → 
+        <span class="text-white">{article.category}</span>
+      </nav>
+      <span class="bg-secondary text-white px-3 py-1 rounded text-sm">{article.category}</span>
+      <h1 class="text-3xl md:text-4xl font-bold mt-4 mb-4">{article.title}</h1>
+      <div class="flex items-center gap-4 text-gray-300">
+        <span>📖 {article.readTime} read</span>
+        <span>📅 {new Date(article.publishDate).toLocaleDateString()}</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 py-12">
+    <div class="grid lg:grid-cols-3 gap-12">
+      <!-- Main Content -->
+      <article class="lg:col-span-2 prose prose-lg max-w-none">
+        <div class="bg-white p-8 rounded-xl shadow">
+          <p class="text-xl text-gray-600 mb-8 border-l-4 border-secondary pl-4">{article.description}</p>
+          
+          <h2>Understanding {article.title}</h2>
+          <p>
+            Hit and Run and Hit and Run have transformed transportation, but accidents involving Hit and Run vehicles create complex legal situations. 
+            Whether you're a passenger, another driver, a pedestrian, or the Hit and Run driver yourself, understanding your rights is critical.
+          </p>
+
+          <h2>Key Points</h2>
+          <ul>
+            <li>Hit and Run carries $1 million in liability insurance when passengers are in the vehicle</li>
+            <li>Insurance coverage varies based on the driver's app status at the time of the accident</li>
+            <li>Multiple parties may be liable: the driver, Hit and Run, other drivers, or vehicle manufacturers</li>
+            <li>Statute of limitations varies by state - act quickly to preserve your rights</li>
+          </ul>
+
+          <h2>Your Legal Options</h2>
+          <p>
+            If you've been involved in a Hit and Run accident, you may be entitled to compensation for medical expenses, 
+            lost wages, pain and suffering, and other damages. The key is understanding who is liable and which 
+            insurance policies apply to your situation.
+          </p>
+
+          <h2>What to Do Next</h2>
+          <ol>
+            <li>Seek medical attention immediately, even if injuries seem minor</li>
+            <li>Document everything: photos, witness information, police reports</li>
+            <li>Request your Hit and Run trip receipt and ride details through the app</li>
+            <li>Do not give recorded statements to insurance companies without legal advice</li>
+            <li>Consult with an experienced Hit and Run accident attorney</li>
+          </ol>
+
+          <div class="bg-secondary/10 p-6 rounded-xl mt-8">
+            <h3 class="text-xl font-bold mb-2">Need Legal Help?</h3>
+            <p class="mb-4">If you have questions about {article.title.toLowerCase()}, speak with an experienced Hit and Run accident attorney today.</p>
+            <a href="/free-consultation/" class="bg-secondary text-white px-6 py-3 rounded-lg font-bold hover:bg-secondary-dark transition inline-block">
+              Get Free Case Review →
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="lg:col-span-1">
+        <div class="sticky top-24 space-y-8">
+          <LeadForm 
+            source={`blog-${article.slug}`}
+            title="Free Case Review"
+            subtitle="Have questions? Get answers from an attorney."
+            compact={true}
+          />
+          
+          <!-- Related Articles -->
+          {relatedArticles.length > 0 && (
+            <div class="bg-white p-6 rounded-xl shadow">
+              <h3 class="font-bold text-lg mb-4">Related Articles</h3>
+              <ul class="space-y-3">
+                {relatedArticles.map(ra => (
+                  <li>
+                    <a href={`/blog/${ra.slug}/`} class="text-secondary hover:underline text-sm">{ra.title}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <!-- Recent Articles -->
+          <div class="bg-gray-50 p-6 rounded-xl">
+            <h3 class="font-bold text-lg mb-4">Recent Articles</h3>
+            <ul class="space-y-3">
+              {recentArticles.map(ra => (
+                <li>
+                  <a href={`/blog/${ra.slug}/`} class="text-secondary hover:underline text-sm">{ra.title}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

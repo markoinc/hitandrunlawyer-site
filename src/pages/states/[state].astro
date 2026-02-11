@@ -1,0 +1,199 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LeadForm from '../../components/LeadForm.astro';
+import { states, getStateBySlug } from '../../data/states';
+import { getCitiesByState } from '../../data/cities';
+
+export function getStaticPaths() {
+  return states.map(state => ({
+    params: { state: state.slug },
+    props: { state }
+  }));
+}
+
+const { state } = Astro.props;
+const cities = getCitiesByState(state.slug);
+
+// Build SEO title - keep under 37 chars so with suffix stays under 60
+const fullStateTitle = `${state.name} Hit and Run Accident Lawyers`;
+const seoTitle = fullStateTitle.length <= 37 ? fullStateTitle : `${state.name} Hit and Run Lawyers`;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "LegalService",
+  "name": `${state.name} Hit and Run Accident Lawyers`,
+  "description": `Find experienced Hit and Run accident lawyers in ${state.name}. Free case evaluation for Hit and Run injury claims.`,
+  "areaServed": {
+    "@type": "State",
+    "name": state.name
+  }
+};
+---
+
+<BaseLayout 
+  title={seoTitle}
+  description={`Find experienced Hit and Run accident lawyers in ${state.name}. ${state.statOfLimitations} statute of limitations. ${state.faultSystem}. Free case evaluation.`}
+  schema={schema}
+>
+  <!-- Hero -->
+  <section class="bg-primary text-white py-12">
+    <div class="max-w-7xl mx-auto px-4">
+      <nav class="text-sm text-gray-400 mb-4">
+        <a href="/" class="hover:text-white">Home</a> → 
+        <a href="/states/" class="hover:text-white">States</a> → 
+        <span class="text-white">{state.name}</span>
+      </nav>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">{state.name} Hit and Run Accident Lawyers</h1>
+      <p class="text-xl text-gray-300">Find experienced Hit and Run accident attorneys in {state.name}</p>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 py-12">
+    <div class="grid lg:grid-cols-3 gap-12">
+      <!-- Main Content -->
+      <div class="lg:col-span-2">
+        <!-- Urgent Warning if applicable -->
+        {state.statOfLimitations === "1 year" && (
+          <div class="bg-red-100 border-l-4 border-red-500 p-4 mb-8 rounded-r-lg">
+            <h2 class="font-bold text-red-800 text-lg">⚠️ URGENT: 1-Year Deadline</h2>
+            <p class="text-red-700">{state.name} has only a 1-year statute of limitations for personal injury claims. Contact an attorney immediately to protect your rights.</p>
+          </div>
+        )}
+
+        {state.faultSystem.includes("Contributory") && (
+          <div class="bg-orange-100 border-l-4 border-orange-500 p-4 mb-8 rounded-r-lg">
+            <h2 class="font-bold text-orange-800 text-lg">⚠️ Contributory Negligence State</h2>
+            <p class="text-orange-700">{state.name} follows contributory negligence rules. If you're found even 1% at fault, you may be barred from recovery. An experienced attorney is critical.</p>
+          </div>
+        )}
+
+        <!-- Key Laws -->
+        <div class="bg-white p-6 rounded-xl shadow mb-8">
+          <h2 class="text-2xl font-bold mb-6">{state.name} Hit and Run Accident Laws</h2>
+          
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h3 class="font-semibold text-gray-700">Statute of Limitations</h3>
+              <p class="text-2xl font-bold text-secondary">{state.statOfLimitations}</p>
+            </div>
+            
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h3 class="font-semibold text-gray-700">Fault System</h3>
+              <p class="text-lg font-bold">{state.faultSystem}</p>
+            </div>
+            
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h3 class="font-semibold text-gray-700">Min Insurance</h3>
+              <p class="text-lg font-bold">{state.minInsurance}</p>
+            </div>
+            
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h3 class="font-semibold text-gray-700">TNC Law</h3>
+              <p class="text-lg font-bold">{state.tncLaw ? `Enacted ${state.tncLawYear}` : "No specific law"}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hit and Run Insurance Tiers -->
+        <div class="bg-white p-6 rounded-xl shadow mb-8">
+          <h2 class="text-2xl font-bold mb-6">Hit and Run Insurance Coverage in {state.name}</h2>
+          
+          <div class="space-y-4">
+            <div class="border-l-4 border-gray-400 pl-4">
+              <h3 class="font-bold">Period 1: App On, Waiting for Request</h3>
+              <p class="text-gray-600">{state.insuranceTiers.waitingForRide}</p>
+            </div>
+            
+            <div class="border-l-4 border-secondary pl-4">
+              <h3 class="font-bold">Period 2: En Route to Pickup</h3>
+              <p class="text-gray-600">{state.insuranceTiers.enRoute}</p>
+            </div>
+            
+            <div class="border-l-4 border-accent-green pl-4">
+              <h3 class="font-bold">Period 3: Passenger in Vehicle</h3>
+              <p class="text-gray-600">{state.insuranceTiers.enRoute}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Unique Laws -->
+        <div class="bg-white p-6 rounded-xl shadow mb-8">
+          <h2 class="text-2xl font-bold mb-4">{state.name} Hit and Run Regulations</h2>
+          <p class="text-gray-600 mb-4">{state.rideshareRegulations}</p>
+          
+          <h3 class="font-bold mb-2">Key Points:</h3>
+          <ul class="list-disc list-inside space-y-2 text-gray-600">
+            {state.uniqueLaws.map(law => (
+              <li>{law}</li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Unique Facts -->
+        <div class="bg-gray-50 p-6 rounded-xl mb-8">
+          <h2 class="text-2xl font-bold mb-4">What You Should Know</h2>
+          <ul class="space-y-3">
+            {state.uniqueFacts.map(fact => (
+              <li class="flex items-start gap-3">
+                <span class="text-secondary text-xl">→</span>
+                <span>{fact}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Major Markets -->
+        <div class="bg-white p-6 rounded-xl shadow mb-8">
+          <h2 class="text-2xl font-bold mb-4">Major Hit and Run Markets in {state.name}</h2>
+          <div class="flex flex-wrap gap-3">
+            {state.majorMarkets.map(market => {
+              const cityData = cities.find(c => c.name === market);
+              return cityData ? (
+                <a href={`/cities/${cityData.slug}/`} class="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-secondary-dark transition">
+                  {market}
+                </a>
+              ) : (
+                <span class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg">{market}</span>
+              );
+            })}
+          </div>
+        </div>
+
+        <!-- Cities in State -->
+        {cities.length > 0 && (
+          <div class="bg-white p-6 rounded-xl shadow">
+            <h2 class="text-2xl font-bold mb-4">Find Lawyers in {state.name} Cities</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {cities.map(city => (
+                <a href={`/cities/${city.slug}/`} class="text-secondary hover:underline">
+                  {city.name}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <!-- Sidebar -->
+      <div class="lg:col-span-1">
+        <div class="sticky top-24">
+          <LeadForm 
+            source={`state-${state.slug}`} 
+            title={`Free ${state.name} Case Review`}
+            subtitle={`Speak with an attorney who knows ${state.name}'s Hit and Run laws.`}
+          />
+          
+          <div class="mt-8 bg-gray-100 p-6 rounded-xl">
+            <p class="text-gray-600 mt-2">Available 24/7</p>
+          </div>
+          
+          <div class="mt-8 bg-primary text-white p-6 rounded-xl">
+            <h3 class="font-bold text-lg mb-2">Annual Hit and Run Accidents</h3>
+            <p class="text-4xl font-bold text-secondary">{state.annualAccidents.toLocaleString()}</p>
+            <p class="text-gray-400 text-sm mt-2">Estimated in {state.name}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

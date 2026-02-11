@@ -1,0 +1,468 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { states, getOneYearSOLStates, getContributoryNegligenceStates } from '../data/states';
+import { getTopMarkets } from '../data/cities';
+
+const topMarkets = getTopMarkets(10);
+const urgentStates = getOneYearSOLStates();
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Hit and Run Lawyer",
+  "url": "https://hitandrunlawyer.net",
+  "description": "Find experienced hit and run accident lawyers nationwide. Free case evaluation for hit and run injury claims.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://hitandrunlawyer.net/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+};
+---
+
+<BaseLayout 
+  title="Hit and Run Accident Lawyers | Find the Driver & Get Compensation" 
+  description="Victim of a hit and run accident? Our lawyers help identify fleeing drivers and pursue UM/UIM claims. Free case evaluation. No fees unless you win."
+  schema={schema}
+>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-primary via-primary-light to-primary text-white py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+            Victim of a <span class="text-secondary">Hit and Run</span>?
+          </h1>
+          <p class="text-xl md:text-2xl text-gray-300 mb-8">
+            The driver fled, but you're not alone. We help track down hit and run drivers and pursue every avenue for compensation—including UM/UIM claims.
+          </p>
+          <div class="flex flex-wrap gap-4 mb-8">
+            <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">
+              <span class="text-2xl">✓</span>
+              <span>Free Case Review</span>
+            </div>
+            <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">
+              <span class="text-2xl">✓</span>
+              <span>No Win, No Fee</span>
+            </div>
+            <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">
+              <span class="text-2xl">✓</span>
+              <span>24/7 Availability</span>
+            </div>
+          </div>
+          </div>
+        <div>
+          <LeadForm source="homepage-hero" title="Start Your Free Case Review" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hit and Run Statistics -->
+  <section class="py-12 bg-gray-100">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div class="bg-white p-6 rounded-xl shadow">
+          <div class="text-4xl font-bold text-secondary mb-2">737,000+</div>
+          <div class="text-gray-600">Hit and Run Crashes Per Year</div>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow">
+          <div class="text-4xl font-bold text-secondary mb-2">2,049</div>
+          <div class="text-gray-600">Fatal Hit & Runs Annually</div>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow">
+          <div class="text-4xl font-bold text-secondary mb-2">1 in 5</div>
+          <div class="text-gray-600">Pedestrian Deaths Are Hit & Runs</div>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow">
+          <div class="text-4xl font-bold text-secondary mb-2">50%</div>
+          <div class="text-gray-600">Of Drivers Eventually Caught</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What is a Hit and Run -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">What Is a Hit and Run Accident?</h2>
+      <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+        Understanding hit and run laws and your rights as a victim
+      </p>
+      
+      <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+        <div>
+          <h3 class="text-2xl font-bold mb-4">Legal Definition of Hit and Run</h3>
+          <div class="space-y-4 text-gray-600">
+            <p>
+              A <strong>hit and run</strong> occurs when a driver involved in an accident flees the scene without stopping to identify themselves, exchange insurance information, or render aid to injured parties.
+            </p>
+            <p>
+              In all 50 states, leaving the scene of an accident—especially one involving injuries or death—is a <strong>criminal offense</strong>. Depending on the severity, it can be charged as a misdemeanor or felony.
+            </p>
+            <p>
+              Hit and run accidents leave victims facing medical bills, lost wages, and emotional trauma without knowing who caused their injuries. But you have legal options.
+            </p>
+          </div>
+        </div>
+        <div class="bg-gray-50 p-8 rounded-xl">
+          <h4 class="text-xl font-bold mb-4">Hit and Run Facts</h4>
+          <ul class="space-y-3 text-gray-600">
+            <li class="flex items-start gap-3">
+              <span class="text-secondary font-bold">✓</span>
+              <span>Hit and runs happen every 43 seconds in the US</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-secondary font-bold">✓</span>
+              <span>65% occur in urban areas</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-secondary font-bold">✓</span>
+              <span>Most happen between 6 PM and midnight</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-secondary font-bold">✓</span>
+              <span>Pedestrians and cyclists are at highest risk</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-secondary font-bold">✓</span>
+              <span>DUI is a factor in many hit and run cases</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What To Do After a Hit and Run -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">What To Do After a Hit and Run</h2>
+      <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+        Take these critical steps to protect your health and your claim
+      </p>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white p-8 rounded-xl border-t-4 border-red-500 shadow">
+          <div class="text-5xl mb-4">🚨</div>
+          <h3 class="text-xl font-bold mb-2">1. Stay at the Scene</h3>
+          <p class="text-gray-600">
+            <strong>Never chase the fleeing driver.</strong> Stay where you are, check for injuries, and move to safety if possible. Call 911 immediately.
+          </p>
+        </div>
+        
+        <div class="bg-white p-8 rounded-xl border-t-4 border-secondary shadow">
+          <div class="text-5xl mb-4">📝</div>
+          <h3 class="text-xl font-bold mb-2">2. Document Everything</h3>
+          <p class="text-gray-600">
+            Write down the vehicle's make, model, color, and partial license plate if possible. Note the direction they fled. Get witness contact info.
+          </p>
+        </div>
+        
+        <div class="bg-white p-8 rounded-xl border-t-4 border-accent-green shadow">
+          <div class="text-5xl mb-4">🏥</div>
+          <h3 class="text-xl font-bold mb-2">3. Seek Medical Care</h3>
+          <p class="text-gray-600">
+            Even if you feel fine, get checked. Adrenaline masks injuries. Medical records document your injuries and link them to the accident.
+          </p>
+        </div>
+      </div>
+      
+      <div class="mt-12 bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-xl">
+        <p class="text-blue-800">
+          <strong>Pro Tip:</strong> Check nearby businesses for surveillance cameras. Dashcam footage, doorbell cameras, and traffic cameras have helped identify hit and run drivers in countless cases.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How To Find the Driver -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">How We Help Find Hit and Run Drivers</h2>
+      <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+        Our attorneys use every available resource to track down fleeing drivers
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-gray-50 p-6 rounded-xl text-center">
+          <div class="text-4xl mb-4">📹</div>
+          <h3 class="font-bold mb-2">Surveillance Footage</h3>
+          <p class="text-gray-600 text-sm">Business cameras, traffic cams, doorbell cameras</p>
+        </div>
+        
+        <div class="bg-gray-50 p-6 rounded-xl text-center">
+          <div class="text-4xl mb-4">👥</div>
+          <h3 class="font-bold mb-2">Witness Statements</h3>
+          <p class="text-gray-600 text-sm">Interviewing bystanders who saw the crash</p>
+        </div>
+        
+        <div class="bg-gray-50 p-6 rounded-xl text-center">
+          <div class="text-4xl mb-4">🔍</div>
+          <h3 class="font-bold mb-2">Private Investigators</h3>
+          <p class="text-gray-600 text-sm">Professional tracking and evidence gathering</p>
+        </div>
+        
+        <div class="bg-gray-50 p-6 rounded-xl text-center">
+          <div class="text-4xl mb-4">🚗</div>
+          <h3 class="font-bold mb-2">Vehicle Forensics</h3>
+          <p class="text-gray-600 text-sm">Paint transfer, debris, and damage analysis</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UM/UIM Claims -->
+  <section class="py-16 bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">UM/UIM Claims: Your Safety Net</h2>
+      <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+        Even if the driver is never found, you may still recover compensation
+      </p>
+      
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h3 class="text-2xl font-bold mb-4">What is Uninsured Motorist Coverage?</h3>
+          <div class="space-y-4 text-gray-300">
+            <p>
+              <strong>Uninsured Motorist (UM)</strong> coverage protects you when the at-fault driver has no insurance—or can't be identified, like in a hit and run.
+            </p>
+            <p>
+              <strong>Underinsured Motorist (UIM)</strong> coverage kicks in when the at-fault driver's insurance isn't enough to cover your damages.
+            </p>
+            <p>
+              In most hit and run cases where the driver isn't found, your own UM coverage becomes your primary source of compensation.
+            </p>
+          </div>
+        </div>
+        <div class="bg-white/10 p-8 rounded-xl">
+          <h4 class="text-xl font-bold mb-4">UM/UIM Claim Requirements</h4>
+          <ul class="space-y-3 text-gray-300">
+            <li class="flex items-start gap-3">
+              <span class="text-secondary font-bold">1.</span>
+              <span>You must have UM/UIM coverage on your policy</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-secondary font-bold">2.</span>
+              <span>File a police report documenting the hit and run</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-secondary font-bold">3.</span>
+              <span>Report the accident to your insurer promptly</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-secondary font-bold">4.</span>
+              <span>Prove damages with medical records & documentation</span>
+            </li>
+          </ul>
+          <div class="mt-6 p-4 bg-yellow-500/20 rounded-lg">
+            <p class="text-yellow-200 text-sm">
+              <strong>⚠️ Warning:</strong> Your own insurance company may try to minimize your claim. An attorney ensures you get full value.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Types of Hit and Run Cases -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Types of Hit and Run Cases We Handle</h2>
+      <p class="text-gray-600 text-center mb-12">Our attorneys represent all hit and run victims</p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-gray-50 p-6 rounded-xl">
+          <div class="text-4xl mb-4">🚶</div>
+          <h3 class="text-xl font-bold mb-2">Pedestrian Hit and Runs</h3>
+          <p class="text-gray-600">Pedestrians are especially vulnerable. One in five pedestrian deaths involves a hit and run driver.</p>
+        </div>
+        
+        <div class="bg-gray-50 p-6 rounded-xl">
+          <div class="text-4xl mb-4">🚴</div>
+          <h3 class="text-xl font-bold mb-2">Cyclist Hit and Runs</h3>
+          <p class="text-gray-600">Bicyclists struck by fleeing drivers often suffer catastrophic injuries due to lack of protection.</p>
+        </div>
+        
+        <div class="bg-gray-50 p-6 rounded-xl">
+          <div class="text-4xl mb-4">🚗</div>
+          <h3 class="text-xl font-bold mb-2">Vehicle-to-Vehicle</h3>
+          <p class="text-gray-600">When another driver hits your car and flees, you may be left with significant property and injury claims.</p>
+        </div>
+        
+        <div class="bg-gray-50 p-6 rounded-xl">
+          <div class="text-4xl mb-4">🏍️</div>
+          <h3 class="text-xl font-bold mb-2">Motorcycle Hit and Runs</h3>
+          <p class="text-gray-600">Motorcyclists face severe injuries when struck by fleeing vehicles with no crash protection.</p>
+        </div>
+        
+        <div class="bg-gray-50 p-6 rounded-xl">
+          <div class="text-4xl mb-4">🅿️</div>
+          <h3 class="text-xl font-bold mb-2">Parking Lot Hit and Runs</h3>
+          <p class="text-gray-600">Someone hit your parked car and left? Surveillance cameras often help identify these drivers.</p>
+        </div>
+        
+        <div class="bg-gray-50 p-6 rounded-xl">
+          <div class="text-4xl mb-4">💔</div>
+          <h3 class="text-xl font-bold mb-2">Fatal Hit and Runs</h3>
+          <p class="text-gray-600">Families can pursue wrongful death claims against hit and run drivers who cause fatal crashes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Urgent: Short Statute States -->
+  <section class="py-16 bg-red-50">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="bg-red-100 border-l-4 border-red-500 p-6 rounded-r-xl mb-8">
+        <h2 class="text-2xl font-bold text-red-800 mb-2">⚠️ Act Fast: 1-Year Statute of Limitations</h2>
+        <p class="text-red-700">
+          If your hit and run accident occurred in Louisiana or Tennessee, you have only <strong>ONE YEAR</strong> to file a claim. Don't wait!
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        {urgentStates.map(state => (
+          <a href={`/states/${state.slug}/`} class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition flex items-center gap-4">
+            <div class="text-4xl">⏰</div>
+            <div>
+              <h3 class="font-bold text-lg">{state.name}</h3>
+              <p class="text-red-600 font-semibold">Only 1 year to file your hit and run claim!</p>
+            </div>
+          </a>
+        ))}
+      </div>
+      
+      <div class="mt-8 text-center">
+        <a href="/resources/statute-of-limitations/" class="text-secondary font-semibold hover:underline">
+          View all state deadlines →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Top Markets -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Find Hit and Run Lawyers in Major Cities</h2>
+      <p class="text-gray-600 text-center mb-12">Experienced hit and run attorneys in your area</p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+        {topMarkets.map(city => (
+          <a href={`/cities/${city.slug}/`} class="bg-gray-50 p-4 rounded-xl hover:bg-secondary hover:text-white transition group">
+            <h3 class="font-bold">{city.name}</h3>
+            <p class="text-sm text-gray-500 group-hover:text-white/80">{city.stateAbbr}</p>
+          </a>
+        ))}
+      </div>
+      
+      <div class="mt-8 text-center">
+        <a href="/cities/" class="bg-secondary text-white px-8 py-3 rounded-lg font-semibold hover:bg-secondary-dark transition inline-block">
+          View All Cities →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Find by State -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Find Hit and Run Lawyers by State</h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+        {states.map(state => (
+          <a href={`/states/${state.slug}/`} class="bg-white p-3 rounded-lg shadow hover:shadow-md hover:bg-secondary hover:text-white transition text-center">
+            <span class="font-medium">{state.abbr}</span>
+          </a>
+        ))}
+      </div>
+      
+      <div class="mt-8 text-center">
+        <a href="/states/" class="text-secondary font-semibold hover:underline">
+          Browse all states with detailed laws →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Hit and Run Accident FAQs</h2>
+      
+      <div class="space-y-6">
+        <details class="bg-gray-50 p-6 rounded-xl shadow group">
+          <summary class="font-bold text-lg cursor-pointer list-none flex justify-between items-center">
+            Can I get compensation if the hit and run driver is never found?
+            <span class="text-secondary group-open:rotate-180 transition">▼</span>
+          </summary>
+          <p class="mt-4 text-gray-600">
+            Yes! If you have uninsured motorist (UM) coverage on your auto policy, you can file a claim against your own insurance. This is exactly what UM coverage is designed for—to protect you when the at-fault driver can't be identified or has no insurance.
+          </p>
+        </details>
+        
+        <details class="bg-gray-50 p-6 rounded-xl shadow group">
+          <summary class="font-bold text-lg cursor-pointer list-none flex justify-between items-center">
+            How long do police investigate hit and runs?
+            <span class="text-secondary group-open:rotate-180 transition">▼</span>
+          </summary>
+          <p class="mt-4 text-gray-600">
+            Active investigation typically lasts days to weeks, depending on available evidence. Cases with serious injuries or fatalities receive more resources. However, your civil claim isn't dependent on the police finding the driver—you can pursue UM claims regardless of whether the driver is identified.
+          </p>
+        </details>
+        
+        <details class="bg-gray-50 p-6 rounded-xl shadow group">
+          <summary class="font-bold text-lg cursor-pointer list-none flex justify-between items-center">
+            What if I only got a partial license plate?
+            <span class="text-secondary group-open:rotate-180 transition">▼</span>
+          </summary>
+          <p class="mt-4 text-gray-600">
+            A partial plate combined with vehicle make, model, and color can often be enough to identify the driver. Police can run partial plate searches, and private investigators have additional resources. Even a few digits can narrow down suspects significantly.
+          </p>
+        </details>
+        
+        <details class="bg-gray-50 p-6 rounded-xl shadow group">
+          <summary class="font-bold text-lg cursor-pointer list-none flex justify-between items-center">
+            Is leaving the scene of an accident a felony?
+            <span class="text-secondary group-open:rotate-180 transition">▼</span>
+          </summary>
+          <p class="mt-4 text-gray-600">
+            It depends on the state and severity. If the accident involves injury or death, hit and run is typically a felony. Property-damage-only hit and runs are usually misdemeanors. Penalties include jail time, fines, license suspension, and restitution to victims.
+          </p>
+        </details>
+        
+        <details class="bg-gray-50 p-6 rounded-xl shadow group">
+          <summary class="font-bold text-lg cursor-pointer list-none flex justify-between items-center">
+            Do I need a lawyer for a hit and run claim?
+            <span class="text-secondary group-open:rotate-180 transition">▼</span>
+          </summary>
+          <p class="mt-4 text-gray-600">
+            An attorney is especially valuable in hit and run cases because they're more complex than typical car accidents. You may be dealing with UM claims against your own insurer, tracking down fleeing drivers, and coordinating with criminal investigations. Most hit and run attorneys work on contingency—no fee unless you win.
+          </p>
+        </details>
+      </div>
+      
+      <div class="mt-8 text-center">
+        <a href="/faq/" class="text-secondary font-semibold hover:underline">View all FAQs →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-16 bg-primary text-white">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">The Driver Fled. You Shouldn't Have to Suffer.</h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Our network of experienced hit and run attorneys will fight for your compensation—whether we find the driver or pursue UM/UIM claims on your behalf.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/free-consultation/" class="bg-secondary text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-secondary-light transition">
+          🚗 Get Free Case Review
+        </a>
+        </a>
+      </div>
+      <p class="mt-6 text-gray-400 text-sm">No fees unless you win. Available 24/7.</p>
+    </div>
+  </section>
+</BaseLayout>

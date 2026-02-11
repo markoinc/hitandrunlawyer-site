@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { cities, getTopMarkets, getCitiesWithShortSOL, getContributoryNegligenceCities } from '../../data/cities';
+import { states } from '../../data/states';
+
+const topMarkets = getTopMarkets(20);
+const shortSOLCities = getCitiesWithShortSOL();
+const cnCities = getContributoryNegligenceCities();
+
+// Group cities by state
+const citiesByState: Record<string, typeof cities> = {};
+cities.forEach(city => {
+  if (!citiesByState[city.state]) {
+    citiesByState[city.state] = [];
+  }
+  citiesByState[city.state].push(city);
+});
+---
+
+<BaseLayout 
+  title="Hit and Run Accident Lawyers by City" 
+  description="Find experienced Hit and Run accident lawyers in your city. Coverage in 150+ major US cities with high Hit and Run activity."
+>
+  <section class="bg-primary text-white py-12">
+    <div class="max-w-7xl mx-auto px-4">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Find Hit and Run Lawyers by City</h1>
+      <p class="text-xl text-gray-300">Experienced Hit and Run accident attorneys in {cities.length}+ cities nationwide</p>
+    </div>
+  </section>
+
+  <!-- Top Markets -->
+  <section class="py-12 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-8">Top Hit and Run Markets</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {topMarkets.map(city => (
+          <a href={`/cities/${city.slug}/`} class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="font-bold">{city.name}</h3>
+                <p class="text-sm text-gray-500">{city.stateAbbr}</p>
+              </div>
+              <span class="bg-secondary text-white text-xs px-2 py-1 rounded">#{city.marketRank}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Urgent Cities -->
+  <section class="py-8 bg-red-50">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-2xl font-bold text-red-800 mb-4">⚠️ 1-Year Deadline Cities (Louisiana & Tennessee)</h2>
+      <div class="flex flex-wrap gap-3">
+        {shortSOLCities.map(city => (
+          <a href={`/cities/${city.slug}/`} class="bg-white px-4 py-2 rounded-lg shadow hover:shadow-md text-red-600 font-medium">
+            {city.name}, {city.stateAbbr}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Cities by State -->
+  <section class="py-12">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-8">Browse by State</h2>
+      
+      <div class="space-y-8">
+        {Object.entries(citiesByState).sort(([a], [b]) => a.localeCompare(b)).map(([stateName, stateCities]) => (
+          <div>
+            <h3 class="text-xl font-bold mb-4 pb-2 border-b border-gray-200">
+              <a href={`/states/${stateCities[0].stateSlug}/`} class="hover:text-secondary">
+                {stateName}
+              </a>
+              <span class="text-sm font-normal text-gray-500 ml-2">({stateCities.length} cities)</span>
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
+              {stateCities.map(city => (
+                <a href={`/cities/${city.slug}/`} class="text-secondary hover:underline text-sm">
+                  {city.name}
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-12 bg-primary text-white">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-4">Don't See Your City?</h2>
+      <p class="text-gray-300 mb-8">We connect accident victims with attorneys across the entire United States.</p>
+      <a href="/free-consultation/" class="bg-secondary text-white px-8 py-4 rounded-lg font-bold hover:bg-secondary-light transition inline-block">
+        Get Free Case Review
+      </a>
+    </div>
+  </section>
+</BaseLayout>

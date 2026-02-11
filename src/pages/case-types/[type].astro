@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LeadForm from '../../components/LeadForm.astro';
+import { caseTypes, getCaseTypeBySlug } from '../../data/case-types';
+
+export function getStaticPaths() {
+  return caseTypes.map(caseType => ({
+    params: { type: caseType.slug },
+    props: { caseType }
+  }));
+}
+
+const { caseType } = Astro.props;
+const otherCaseTypes = caseTypes.filter(ct => ct.slug !== caseType.slug).slice(0, 5);
+---
+
+<BaseLayout 
+  title={caseType.title}
+  description={caseType.description}
+>
+  <section class="bg-primary text-white py-12">
+    <div class="max-w-4xl mx-auto px-4">
+      <nav class="text-sm text-gray-400 mb-4">
+        <a href="/" class="hover:text-white">Home</a> → 
+        <a href="/case-types/" class="hover:text-white">Case Types</a> → 
+        <span class="text-white">{caseType.shortTitle}</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold mb-4">{caseType.title}</h1>
+      <p class="text-xl text-gray-300">{caseType.description}</p>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 py-12">
+    <div class="grid lg:grid-cols-3 gap-12">
+      <div class="lg:col-span-2 space-y-8">
+        <!-- Settlement Range -->
+        <div class="bg-secondary/10 p-6 rounded-xl">
+          <h2 class="text-xl font-bold mb-2">Typical Settlement Range</h2>
+          <p class="text-3xl font-bold text-secondary">{caseType.averageSettlement}</p>
+          <p class="text-gray-600 text-sm mt-2">Actual values depend on injury severity, evidence, and other factors.</p>
+        </div>
+
+        <!-- Common Injuries -->
+        <div class="bg-white p-6 rounded-xl shadow">
+          <h2 class="text-2xl font-bold mb-4">Common Injuries</h2>
+          <div class="flex flex-wrap gap-2">
+            {caseType.commonInjuries.map(injury => (
+              <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">{injury}</span>
+            ))}
+          </div>
+        </div>
+
+        <!-- Liability Factors -->
+        <div class="bg-white p-6 rounded-xl shadow">
+          <h2 class="text-2xl font-bold mb-4">Liability Factors</h2>
+          <ul class="space-y-2">
+            {caseType.liabilityFactors.map(factor => (
+              <li class="flex items-center gap-2">
+                <span class="text-secondary">✓</span>
+                <span>{factor}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Key Evidence -->
+        <div class="bg-white p-6 rounded-xl shadow">
+          <h2 class="text-2xl font-bold mb-4">Key Evidence Needed</h2>
+          <ul class="space-y-2">
+            {caseType.keyEvidence.map(evidence => (
+              <li class="flex items-center gap-2">
+                <span class="text-secondary">📄</span>
+                <span>{evidence}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- CTA -->
+        <div class="bg-primary text-white p-8 rounded-xl">
+          <h2 class="text-2xl font-bold mb-4">Were You Involved in This Type of Accident?</h2>
+          <p class="text-gray-300 mb-6">Our attorneys have experience with {caseType.shortTitle.toLowerCase()} cases and can help you understand your options.</p>
+          <a href="/free-consultation/" class="bg-secondary text-white px-8 py-4 rounded-lg font-bold hover:bg-secondary-light transition inline-block">
+            Get Free Case Review
+          </a>
+        </div>
+      </div>
+
+      <aside class="lg:col-span-1">
+        <div class="sticky top-24 space-y-8">
+          <LeadForm 
+            source={`case-type-${caseType.slug}`}
+            title="Free Case Evaluation"
+            subtitle={`Speak with an attorney about your ${caseType.shortTitle.toLowerCase()} case.`}
+          />
+          
+          <div class="bg-white p-6 rounded-xl shadow">
+            <h3 class="font-bold text-lg mb-4">Other Case Types</h3>
+            <ul class="space-y-3">
+              {otherCaseTypes.map(oct => (
+                <li>
+                  <a href={`/case-types/${oct.slug}/`} class="text-secondary hover:underline text-sm">{oct.shortTitle}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

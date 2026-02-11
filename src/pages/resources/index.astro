@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { resources, getResourceCategories, getResourcesByCategory } from '../../data/resources';
+
+const categories = getResourceCategories();
+---
+
+<BaseLayout 
+  title="Hit and Run Accident Resources" 
+  description="Comprehensive guides and resources for Hit and Run accident victims. Learn about insurance, legal rights, and what to do after a Hit and Run accident."
+>
+  <section class="bg-primary text-white py-12">
+    <div class="max-w-7xl mx-auto px-4">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Hit and Run Accident Resources</h1>
+      <p class="text-xl text-gray-300">Comprehensive guides to help you understand your rights and options</p>
+    </div>
+  </section>
+
+  <section class="py-12">
+    <div class="max-w-7xl mx-auto px-4">
+      {categories.map(category => {
+        const categoryResources = getResourcesByCategory(category);
+        return (
+          <div class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 pb-2 border-b-2 border-secondary">{category}</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {categoryResources.map(resource => (
+                <a href={`/resources/${resource.slug}/`} class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+                  <h3 class="font-bold text-lg mb-2">{resource.title}</h3>
+                  <p class="text-gray-600 text-sm mb-4">{resource.description}</p>
+                  <span class="text-secondary text-sm">📖 {resource.readTime} read →</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+
+  <section class="py-12 bg-primary text-white">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-4">Need Personalized Guidance?</h2>
+      <p class="text-gray-300 mb-8">Every accident is unique. Get advice specific to your situation.</p>
+      <a href="/free-consultation/" class="bg-secondary text-white px-8 py-4 rounded-lg font-bold hover:bg-secondary-light transition inline-block">
+        Get Free Case Review
+      </a>
+    </div>
+  </section>
+</BaseLayout>
